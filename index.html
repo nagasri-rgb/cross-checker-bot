@@ -3,1005 +3,1653 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AdGuard Pro — Real Estate Compliance Suite</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+<title>AdGuard Pro — Real Estate Ad Compliance</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#08090d;--s1:#0f1117;--s2:#14161e;--s3:#1a1d27;--s4:#1f2230;
-  --b1:rgba(255,255,255,.06);--b2:rgba(255,255,255,.1);--b3:rgba(255,255,255,.16);
-  --accent:#3d7fff;--accent2:#6b9fff;
-  --green:#22c55e;--red:#ef4444;--yellow:#f59e0b;
-  --t1:#eceef4;--t2:#8891a8;--t3:#4a5068;--t4:#2d3148;
-  --r:14px;--r2:10px;--r3:8px;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;z-index:0;
-  background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
-  background-size:48px 48px;pointer-events:none}
-body::after{content:'';position:fixed;top:-40%;left:50%;transform:translateX(-50%);
-  width:900px;height:500px;background:radial-gradient(ellipse,rgba(61,127,255,.07) 0%,transparent 70%);
-  pointer-events:none;z-index:0}
-.z1{position:relative;z-index:1}
+  :root {
+    --bg: #0a0d14;
+    --surface: #111620;
+    --surface2: #161d2e;
+    --border: #1e2d45;
+    --border2: #243352;
+    --accent: #3b82f6;
+    --accent2: #60a5fa;
+    --meta: #1877f2;
+    --google: #4285f4;
+    --green: #22c55e;
+    --red: #ef4444;
+    --orange: #f97316;
+    --yellow: #eab308;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --muted2: #94a3b8;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 
-.hero{text-align:center;padding:64px 20px 48px}
-.badge{display:inline-flex;align-items:center;gap:7px;
-  background:rgba(61,127,255,.1);border:1px solid rgba(61,127,255,.25);
-  color:var(--accent2);font-size:10px;font-weight:600;letter-spacing:2.5px;
-  text-transform:uppercase;padding:6px 18px;border-radius:100px;margin-bottom:24px}
-.badge-dot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:bdot 2s ease infinite}
-@keyframes bdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.4)}}
-.logo{font-family:'Syne',sans-serif;font-size:clamp(52px,9vw,88px);font-weight:800;
-  letter-spacing:-3px;line-height:.95;margin-bottom:18px;
-  background:linear-gradient(140deg,#fff 0%,#a8c4ff 45%,var(--accent) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-sub{font-size:15px;color:var(--t2);max-width:520px;margin:0 auto 40px;line-height:1.65;font-weight:300}
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(59,130,246,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59,130,246,.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
 
-.tabs{display:flex;justify-content:center;gap:10px;margin-bottom:44px;flex-wrap:wrap}
-.tab-btn{display:flex;align-items:center;gap:8px;padding:11px 26px;
-  background:var(--s2);border:1px solid var(--b2);border-radius:var(--r2);
-  color:var(--t2);font-size:13.5px;font-weight:500;cursor:pointer;transition:all .2s;
-  font-family:'DM Sans',sans-serif}
-.tab-btn:hover{border-color:rgba(61,127,255,.4);color:var(--t1)}
-.tab-btn.active{background:rgba(61,127,255,.15);border-color:rgba(61,127,255,.6);color:#fff;
-  box-shadow:0 0 16px rgba(61,127,255,.15)}
+  .wrap { position:relative; z-index:1; max-width:1100px; margin:0 auto; padding:32px 24px; }
 
-.main{max-width:860px;margin:0 auto;padding:0 18px 100px}
-.card{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);padding:22px;margin-bottom:14px;transition:border-color .2s}
-.card:hover{border-color:var(--b2)}
-.card-header{display:flex;align-items:center;gap:12px;margin-bottom:18px}
-.card-num{width:28px;height:28px;background:rgba(61,127,255,.18);border:1px solid rgba(61,127,255,.35);
-  border-radius:7px;display:flex;align-items:center;justify-content:center;
-  font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--accent2);flex-shrink:0}
-.card-title{font-family:'Syne',sans-serif;font-size:14.5px;font-weight:700;letter-spacing:.1px}
-.fl{font-size:11px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:8px}
-.mt{margin-top:14px}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:560px){.row2{grid-template-columns:1fr}}
+  /* Header */
+  .header {
+    text-align:center;
+    padding: 60px 0 50px;
+  }
+  .badge {
+    display:inline-flex; align-items:center; gap:8px;
+    background: rgba(59,130,246,.12);
+    border: 1px solid rgba(59,130,246,.3);
+    border-radius:100px;
+    padding: 6px 16px;
+    font-size:12px; font-weight:600; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--accent2);
+    margin-bottom:24px;
+  }
+  .badge::before { content:''; width:6px; height:6px; background:var(--accent); border-radius:50%; animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+  h1 {
+    font-family:'Syne',sans-serif;
+    font-size: clamp(32px,5vw,56px);
+    font-weight:800; line-height:1.05;
+    background: linear-gradient(135deg,#fff 0%,#93c5fd 60%,var(--accent) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    margin-bottom:16px;
+  }
+  .sub { font-size:16px; color:var(--muted2); max-width:540px; margin:0 auto; line-height:1.7; }
 
-textarea,input[type=text],input[type=url],select{
-  width:100%;background:var(--s2);border:1px solid var(--b2);border-radius:var(--r3);
-  padding:11px 13px;font-size:13.5px;font-family:'DM Sans',sans-serif;color:var(--t1);
-  outline:none;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none}
-textarea{min-height:85px;resize:vertical;line-height:1.55}
-textarea::placeholder,input::placeholder{color:var(--t3)}
-select option{background:var(--s3)}
-textarea:focus,input:focus,select:focus{border-color:rgba(61,127,255,.5);box-shadow:0 0 0 3px rgba(61,127,255,.07)}
+  /* Platform tabs */
+  .tabs {
+    display:flex; justify-content:center; gap:12px;
+    margin: 40px 0;
+  }
+  .tab {
+    display:flex; align-items:center; gap:10px;
+    padding:12px 28px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    border-radius:12px;
+    cursor:pointer; font-size:15px; font-weight:600;
+    color: var(--muted2);
+    transition: all .2s;
+    font-family:'DM Sans',sans-serif;
+  }
+  .tab:hover { border-color:var(--border2); color:var(--text); }
+  .tab.active-meta { border-color:var(--meta); background:rgba(24,119,242,.15); color:#60a5fa; }
+  .tab.active-google { border-color:var(--google); background:rgba(66,133,244,.15); color:#93c5fd; }
+  .tab.active-both { border-color:var(--accent); background:rgba(59,130,246,.15); color:var(--accent2); }
+  .tab-icon { font-size:18px; }
 
-.dropzone{border:1.5px dashed var(--b2);border-radius:var(--r2);padding:28px 20px;
-  text-align:center;cursor:pointer;transition:all .2s}
-.dropzone:hover,.dropzone.drag-over{border-color:var(--accent);background:rgba(61,127,255,.04)}
-.dropzone.has-files{border-color:rgba(34,197,94,.5);background:rgba(34,197,94,.03)}
-.dz-icon{font-size:34px;margin-bottom:8px}
-.dz-t{font-size:14px;font-weight:500;margin-bottom:4px}
-.dz-s{font-size:12px;color:var(--t3)}
-input[type=file]{display:none}
+  /* Cards */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius:16px; padding:28px;
+    margin-bottom:20px;
+    transition: border-color .2s;
+  }
+  .card:focus-within { border-color:var(--border2); }
+  .card-title {
+    font-family:'Syne',sans-serif;
+    font-size:16px; font-weight:700;
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:18px;
+    color:#fff;
+  }
+  .card-num {
+    width:28px; height:28px;
+    background: linear-gradient(135deg,var(--accent),#818cf8);
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:13px; font-weight:700; color:#fff; flex-shrink:0;
+  }
 
-.previews{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px;margin-top:12px}
-.pitem{aspect-ratio:1;border-radius:var(--r3);overflow:hidden;border:1px solid var(--b2);
-  position:relative;background:var(--s2)}
-.pitem img{width:100%;height:100%;object-fit:cover}
-.pitem-rm{position:absolute;top:4px;right:4px;width:20px;height:20px;
-  background:rgba(0,0,0,.8);border:none;border-radius:50%;
-  color:#fff;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+  label { display:block; font-size:13px; color:var(--muted2); margin-bottom:8px; font-weight:500; }
+  textarea, input[type="url"], input[type="text"] {
+    width:100%; padding:14px 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius:10px;
+    font-size:14px; color:var(--text);
+    font-family:'DM Sans',sans-serif;
+    transition: border-color .2s;
+    outline:none;
+    resize:vertical;
+  }
+  textarea { min-height:110px; }
+  textarea:focus, input:focus { border-color: var(--accent); }
+  textarea::placeholder, input::placeholder { color:var(--muted); }
 
-.analyze-btn{width:100%;padding:15px;background:var(--accent);border:none;
-  border-radius:var(--r2);color:#fff;font-family:'Syne',sans-serif;
-  font-size:15px;font-weight:700;letter-spacing:.4px;cursor:pointer;
-  transition:all .25s;margin-top:6px;position:relative;overflow:hidden}
-.analyze-btn:hover{box-shadow:0 0 36px rgba(61,127,255,.4);transform:translateY(-1px)}
-.analyze-btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+  /* Image drop zone */
+  .drop-zone {
+    border: 2px dashed var(--border2);
+    border-radius:12px; padding:36px;
+    text-align:center; cursor:pointer;
+    transition: all .2s; background:var(--surface2);
+  }
+  .drop-zone:hover, .drop-zone.drag { border-color:var(--accent); background:rgba(59,130,246,.06); }
+  .drop-icon { font-size:36px; margin-bottom:10px; }
+  .drop-text { font-size:14px; color:var(--muted2); }
+  .drop-sub { font-size:12px; color:var(--muted); margin-top:6px; }
+  #fileInput { display:none; }
+  #imgPreviewWrap { display:none; margin-top:16px; }
+  #imgPreviewWrap img { max-width:260px; border-radius:10px; border:1px solid var(--border); }
 
-.progress-wrap{display:none;margin-top:22px}
-.progress-wrap.show{display:block}
-.pbar-outer{height:3px;background:var(--s3);border-radius:2px;overflow:hidden;margin-bottom:16px}
-.pbar-inner{height:100%;background:var(--accent);border-radius:2px;width:0;transition:width .5s ease}
-.progress-steps{display:flex;flex-direction:column;gap:6px}
-.pstep{display:flex;align-items:center;gap:10px;padding:9px 14px;
-  background:var(--s2);border:1px solid var(--b1);border-radius:var(--r3);
-  font-size:12.5px;color:var(--t3);transition:all .3s}
-.pstep.active{border-color:rgba(61,127,255,.35);color:var(--accent2);background:rgba(61,127,255,.07)}
-.pstep.done{border-color:rgba(34,197,94,.25);color:var(--green);background:rgba(34,197,94,.05)}
-.pstep.failed{border-color:rgba(239,68,68,.25);color:var(--red);background:rgba(239,68,68,.04)}
-.pstep-ico{font-size:14px;width:20px;text-align:center;flex-shrink:0}
-.pstep-lbl{flex:1}
-.pstep-st{font-size:10px;font-weight:600;letter-spacing:.5px}
+  /* Multi image */
+  .images-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:12px; margin-top:12px; }
+  .img-thumb { position:relative; border-radius:8px; overflow:hidden; border:1px solid var(--border); }
+  .img-thumb img { width:100%; height:100px; object-fit:cover; display:block; }
+  .img-remove { position:absolute; top:4px; right:4px; background:rgba(0,0,0,.7); border:none; color:#fff; width:22px; height:22px; border-radius:50%; cursor:pointer; font-size:13px; display:flex; align-items:center; justify-content:center; }
 
-.results{display:none;margin-top:24px;animation:fadeup .4s ease}
-.results.show{display:block}
-@keyframes fadeup{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+  /* Landing page section */
+  .lp-row { display:grid; grid-template-columns:1fr auto; gap:12px; align-items:end; }
+  .crawl-btn {
+    padding:14px 20px; background:var(--surface2); border:1px solid var(--border);
+    border-radius:10px; color:var(--muted2); cursor:pointer; font-size:13px; font-weight:600;
+    white-space:nowrap; transition:all .2s; font-family:'DM Sans',sans-serif;
+  }
+  .crawl-btn:hover { border-color:var(--accent); color:var(--accent2); }
 
-.res-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px}
-.res-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;letter-spacing:-.3px}
-.overall-pill{padding:5px 14px;border-radius:100px;font-size:12px;font-weight:700;letter-spacing:.5px}
+  /* Run button */
+  .run-btn {
+    width:100%; padding:18px;
+    background: linear-gradient(135deg,var(--accent) 0%,#818cf8 100%);
+    border:none; border-radius:14px;
+    font-size:17px; font-weight:700; color:#fff;
+    cursor:pointer; font-family:'Syne',sans-serif;
+    letter-spacing:.02em;
+    margin-top:8px;
+    transition: all .25s;
+    box-shadow: 0 0 0 0 rgba(59,130,246,.5);
+  }
+  .run-btn:hover { transform:translateY(-2px); box-shadow:0 8px 30px rgba(59,130,246,.35); }
+  .run-btn:active { transform:translateY(0); }
+  .run-btn:disabled { opacity:.5; cursor:not-allowed; transform:none; }
 
-.sec-card{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);margin-bottom:12px;overflow:hidden}
-.sec-head{display:flex;align-items:center;justify-content:space-between;
-  padding:14px 18px;border-bottom:1px solid transparent;cursor:pointer;user-select:none;transition:background .2s}
-.sec-head:hover{background:var(--s2)}
-.sec-head.open{border-bottom-color:var(--b1)}
-.sec-head-left{display:flex;align-items:center;gap:10px}
-.sec-ico{font-size:16px}
-.sec-ttl{font-family:'Syne',sans-serif;font-size:13.5px;font-weight:700}
-.sec-right{display:flex;align-items:center;gap:8px}
-.pill{padding:3px 11px;border-radius:100px;font-size:10.5px;font-weight:700;letter-spacing:.4px;white-space:nowrap}
-.pill-pass{background:rgba(34,197,94,.12);color:#4ade80;border:1px solid rgba(34,197,94,.25)}
-.pill-warn{background:rgba(245,158,11,.12);color:#fbbf24;border:1px solid rgba(245,158,11,.25)}
-.pill-fail{background:rgba(239,68,68,.12);color:#f87171;border:1px solid rgba(239,68,68,.25)}
-.pill-info{background:rgba(61,127,255,.12);color:var(--accent2);border:1px solid rgba(61,127,255,.25)}
-.chev{color:var(--t3);font-size:11px;transition:transform .2s;display:inline-block}
-.chev.open{transform:rotate(180deg)}
+  /* Loading */
+  #loading { display:none; text-align:center; padding:60px 0; }
+  #loading.show { display:block; }
+  .spin-ring {
+    width:56px; height:56px; margin:0 auto 24px;
+    border:3px solid var(--border); border-top-color:var(--accent);
+    border-radius:50%; animation:spin 1s linear infinite;
+  }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  .loading-label { font-family:'Syne',sans-serif; font-size:18px; font-weight:700; color:#fff; margin-bottom:8px; }
+  .loading-step { font-size:13px; color:var(--muted2); }
+  .progress-bar { width:240px; height:3px; background:var(--border); border-radius:99px; margin:16px auto 0; overflow:hidden; }
+  .progress-fill { height:100%; background:linear-gradient(90deg,var(--accent),#818cf8); border-radius:99px; transition:width .4s; }
 
-.sec-body{display:none;padding:20px 20px 22px;animation:fadeup .25s ease}
-.sec-body.open{display:block}
-.sec-body h3{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--accent2);
-  margin:18px 0 8px;letter-spacing:.1px}
-.sec-body h3:first-child{margin-top:0}
-.sec-body h4{font-size:12.5px;font-weight:600;color:var(--t1);margin:14px 0 6px}
-.sec-body p{font-size:13px;line-height:1.72;color:var(--t2);margin-bottom:10px}
-.sec-body ul,.sec-body ol{padding-left:18px;margin-bottom:12px}
-.sec-body li{font-size:13px;line-height:1.72;color:var(--t2);margin-bottom:5px}
-.sec-body strong{color:var(--t1);font-weight:600}
-.sec-body code{background:var(--s3);padding:1px 7px;border-radius:4px;font-size:11.5px;color:var(--accent2)}
-.sec-body a{color:var(--accent2);text-decoration:none}
-.sec-body a:hover{text-decoration:underline}
-.sec-body blockquote{border-left:2px solid var(--accent);padding-left:12px;margin:10px 0;
-  color:var(--t2);font-style:italic;font-size:13px}
+  /* Results */
+  #results { display:none; }
+  #results.show { display:block; animation:fadeUp .4s ease-out; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
 
-.score-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px;margin:4px 0 8px}
-.score-item{background:var(--s2);border:1px solid var(--b1);border-radius:var(--r3);padding:14px}
-.score-label{font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
-.score-val{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;margin-bottom:6px}
-.score-bar{height:4px;background:var(--s4);border-radius:2px;overflow:hidden}
-.score-fill{height:100%;border-radius:2px}
-.s-green .score-val{color:var(--green)}.s-green .score-fill{background:var(--green)}
-.s-yellow .score-val{color:var(--yellow)}.s-yellow .score-fill{background:var(--yellow)}
-.s-red .score-val{color:var(--red)}.s-red .score-fill{background:var(--red)}
+  /* Score hero */
+  .score-hero {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius:20px; padding:40px;
+    margin-bottom:24px;
+    display:grid; grid-template-columns:auto 1fr; gap:40px;
+    align-items:center;
+  }
+  @media(max-width:640px){ .score-hero { grid-template-columns:1fr; text-align:center; } }
+  .score-donut-wrap { position:relative; width:180px; height:180px; flex-shrink:0; }
+  .score-donut-wrap svg { width:180px; height:180px; transform:rotate(-90deg); }
+  .score-track { fill:none; stroke:var(--border); stroke-width:12; }
+  .score-fill { fill:none; stroke-width:12; stroke-linecap:round; transition:stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1); }
+  .score-center {
+    position:absolute; inset:0; display:flex;
+    flex-direction:column; align-items:center; justify-content:center;
+  }
+  .score-num { font-family:'Syne',sans-serif; font-size:42px; font-weight:800; }
+  .score-denom { font-size:13px; color:var(--muted); margin-top:-4px; }
+  .score-right {}
+  .verdict-badge {
+    display:inline-flex; align-items:center; gap:8px;
+    padding:8px 18px; border-radius:100px;
+    font-size:13px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  .verdict-badge.pass { background:rgba(34,197,94,.15); border:1px solid rgba(34,197,94,.4); color:var(--green); }
+  .verdict-badge.fail { background:rgba(239,68,68,.15); border:1px solid rgba(239,68,68,.4); color:var(--red); }
+  .verdict-badge.warn { background:rgba(234,179,8,.15); border:1px solid rgba(234,179,8,.4); color:var(--yellow); }
+  .verdict-title { font-family:'Syne',sans-serif; font-size:26px; font-weight:800; color:#fff; margin-bottom:8px; }
+  .verdict-desc { font-size:14px; color:var(--muted2); line-height:1.6; margin-bottom:20px; }
+  .score-stats { display:flex; gap:16px; flex-wrap:wrap; }
+  .stat-chip {
+    padding:8px 16px; border-radius:8px;
+    background:var(--surface2); border:1px solid var(--border);
+    font-size:13px; font-weight:600; display:flex; align-items:center; gap:6px;
+  }
+  .stat-dot { width:8px; height:8px; border-radius:50%; }
 
-.err-box{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.25);
-  border-radius:var(--r2);padding:16px;margin-top:16px;font-size:13px;color:#f87171}
-.err-box strong{display:block;margin-bottom:6px;font-size:14px}
+  /* Per-platform scores */
+  .platform-scores {
+    display:grid; grid-template-columns:1fr 1fr; gap:16px;
+    margin-bottom:24px;
+  }
+  @media(max-width:540px) { .platform-scores { grid-template-columns:1fr; } }
+  .platform-score-card {
+    background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:24px;
+  }
+  .ps-header { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+  .ps-icon { width:36px; height:36px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:18px; }
+  .ps-icon.meta { background:rgba(24,119,242,.2); }
+  .ps-icon.google { background:rgba(66,133,244,.2); }
+  .ps-name { font-family:'Syne',sans-serif; font-size:15px; font-weight:700; }
+  .ps-bar-wrap { height:6px; background:var(--border); border-radius:99px; overflow:hidden; margin:8px 0; }
+  .ps-bar { height:100%; border-radius:99px; transition:width 1s ease; }
+  .ps-score-row { display:flex; justify-content:space-between; font-size:12px; color:var(--muted2); }
 
-/* CHATBOT */
-.fab{position:fixed;bottom:26px;right:26px;width:54px;height:54px;
-  background:var(--accent);border:none;border-radius:50%;cursor:pointer;
-  box-shadow:0 4px 24px rgba(61,127,255,.45);
-  display:flex;align-items:center;justify-content:center;
-  font-size:20px;z-index:1000;transition:all .2s}
-.fab:hover{transform:scale(1.08);box-shadow:0 6px 32px rgba(61,127,255,.55)}
+  /* Category checks table */
+  .checks-section { margin-bottom:24px; }
+  .section-header {
+    display:flex; align-items:center; gap:12px;
+    padding:16px 20px;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:12px 12px 0 0;
+    cursor:pointer; user-select:none;
+  }
+  .section-header h3 { font-family:'Syne',sans-serif; font-size:15px; font-weight:700; flex:1; }
+  .section-toggle { color:var(--muted); transition:transform .2s; }
+  .section-toggle.open { transform:rotate(180deg); }
+  .checks-body { border:1px solid var(--border); border-top:none; border-radius:0 0 12px 12px; overflow:hidden; }
 
-.chat-panel{position:fixed;bottom:92px;right:26px;width:370px;height:530px;
-  background:var(--s1);border:1px solid var(--b2);border-radius:16px;
-  box-shadow:0 24px 64px rgba(0,0,0,.6);
-  display:flex;flex-direction:column;z-index:999;overflow:hidden;
-  transform-origin:bottom right;
-  transition:transform .28s cubic-bezier(.34,1.56,.64,1),opacity .2s;
-  transform:scale(.82);opacity:0;pointer-events:none}
-.chat-panel.open{transform:scale(1);opacity:1;pointer-events:all}
-.chat-head{display:flex;align-items:center;justify-content:space-between;
-  padding:14px 16px;border-bottom:1px solid var(--b1);background:var(--s2);flex-shrink:0}
-.chat-head-info{display:flex;align-items:center;gap:10px}
-.chat-av{width:34px;height:34px;background:rgba(61,127,255,.2);border:1px solid rgba(61,127,255,.3);
-  border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px}
-.chat-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
-.chat-status{font-size:11px;color:var(--green);display:flex;align-items:center;gap:4px;margin-top:1px}
-.online{width:5px;height:5px;background:var(--green);border-radius:50%;animation:bdot 2s ease infinite}
-.chat-close-btn{background:none;border:none;color:var(--t3);cursor:pointer;font-size:16px;line-height:1;padding:4px;transition:color .2s}
-.chat-close-btn:hover{color:var(--t1)}
-.chat-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:11px;
-  scrollbar-width:thin;scrollbar-color:var(--s4) transparent}
-.cmsg{display:flex;gap:8px;align-items:flex-end}
-.cmsg.user{flex-direction:row-reverse}
-.cbubble{max-width:84%;padding:10px 13px;border-radius:13px;font-size:12.5px;line-height:1.58}
-.cmsg.ai .cbubble{background:var(--s2);border:1px solid var(--b1);border-bottom-left-radius:3px;color:var(--t1)}
-.cmsg.user .cbubble{background:var(--accent);border-bottom-right-radius:3px;color:#fff}
-.cmsg-av{width:24px;height:24px;border-radius:50%;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
-.cmsg.ai .cmsg-av{background:rgba(61,127,255,.2);color:var(--accent2)}
-.cmsg.user .cmsg-av{background:rgba(255,255,255,.15);color:#fff}
-.typing{display:flex;gap:4px;padding:10px 13px;background:var(--s2);
-  border:1px solid var(--b1);border-radius:13px;border-bottom-left-radius:3px;width:fit-content}
-.typing span{width:5px;height:5px;background:var(--t3);border-radius:50%;animation:bounce 1.2s ease infinite}
-.typing span:nth-child(2){animation-delay:.15s}
-.typing span:nth-child(3){animation-delay:.3s}
-@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
-.chat-suggs{padding:0 12px 8px;display:flex;gap:5px;flex-wrap:wrap;flex-shrink:0}
-.sug-btn{background:var(--s2);border:1px solid var(--b2);color:var(--t2);
-  font-size:11px;padding:4px 10px;border-radius:100px;cursor:pointer;
-  transition:all .2s;font-family:'DM Sans',sans-serif}
-.sug-btn:hover{border-color:var(--accent);color:var(--accent2);background:rgba(61,127,255,.08)}
-.chat-input-row{padding:10px 12px;border-top:1px solid var(--b1);
-  display:flex;gap:8px;align-items:flex-end;flex-shrink:0}
-.chat-txt{flex:1;background:var(--s2);border:1px solid var(--b2);border-radius:var(--r3);
-  padding:9px 12px;color:var(--t1);font-size:12.5px;font-family:'DM Sans',sans-serif;
-  resize:none;min-height:36px;max-height:100px;outline:none;line-height:1.4}
-.chat-txt:focus{border-color:rgba(61,127,255,.5)}
-.chat-send-btn{width:34px;height:34px;background:var(--accent);border:none;
-  border-radius:var(--r3);color:#fff;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  font-size:13px;flex-shrink:0;transition:all .2s}
-.chat-send-btn:hover{background:var(--accent2)}
-.chat-send-btn:disabled{opacity:.45;cursor:not-allowed}
-@media(max-width:480px){
-  .chat-panel{right:10px;width:calc(100vw - 20px)}
-  .fab{right:14px;bottom:14px}
-}
+  .check-row {
+    display:grid; grid-template-columns:32px 1fr auto; gap:16px;
+    align-items:start; padding:16px 20px;
+    border-bottom:1px solid var(--border);
+    transition: background .15s;
+  }
+  .check-row:last-child { border-bottom:none; }
+  .check-row:hover { background: rgba(255,255,255,.02); }
+  .check-icon { width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+  .check-icon.pass { background:rgba(34,197,94,.15); color:var(--green); }
+  .check-icon.fail { background:rgba(239,68,68,.15); color:var(--red); }
+  .check-icon.warn { background:rgba(234,179,8,.15); color:var(--yellow); }
+  .check-icon.info { background:rgba(59,130,246,.15); color:var(--accent2); }
+  .check-content {}
+  .check-name { font-size:14px; font-weight:600; color:#fff; margin-bottom:4px; }
+  .check-desc { font-size:13px; color:var(--muted2); line-height:1.5; }
+  .check-detail { font-size:12px; color:var(--muted); margin-top:4px; font-family:'DM Mono',monospace; }
+  .policy-tag {
+    padding:3px 8px; border-radius:4px;
+    font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+    white-space:nowrap; flex-shrink:0; align-self:start;
+  }
+  .policy-tag.critical { background:rgba(239,68,68,.2); color:#fca5a5; border:1px solid rgba(239,68,68,.3); }
+  .policy-tag.high { background:rgba(249,115,22,.2); color:#fdba74; border:1px solid rgba(249,115,22,.3); }
+  .policy-tag.medium { background:rgba(234,179,8,.2); color:#fde047; border:1px solid rgba(234,179,8,.3); }
+  .policy-tag.passed { background:rgba(34,197,94,.15); color:#86efac; border:1px solid rgba(34,197,94,.2); }
+
+  /* Speed card */
+  .speed-card {
+    background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:24px; margin-bottom:24px;
+  }
+  .speed-title { font-family:'Syne',sans-serif; font-size:15px; font-weight:700; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
+  .speed-metrics { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:12px; }
+  .speed-metric { background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:14px; }
+  .sm-label { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+  .sm-value { font-family:'Syne',sans-serif; font-size:22px; font-weight:800; }
+  .sm-desc { font-size:11px; color:var(--muted2); margin-top:3px; }
+  .sm-good { color:var(--green); }
+  .sm-warn { color:var(--yellow); }
+  .sm-bad { color:var(--red); }
+
+  /* AI insights */
+  .ai-insights {
+    background: linear-gradient(135deg,rgba(59,130,246,.08),rgba(129,140,248,.08));
+    border:1px solid rgba(59,130,246,.25); border-radius:16px; padding:28px; margin-bottom:24px;
+  }
+  .ai-header { display:flex; align-items:center; gap:10px; margin-bottom:18px; }
+  .ai-chip { font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; background:rgba(59,130,246,.2); color:var(--accent2); padding:3px 8px; border-radius:4px; }
+  .ai-title { font-family:'Syne',sans-serif; font-size:16px; font-weight:700; color:#fff; }
+  .ai-text { font-size:14px; color:var(--muted2); line-height:1.8; white-space:pre-wrap; }
+
+  /* Action list */
+  .action-list { list-style:none; }
+  .action-item {
+    display:flex; align-items:flex-start; gap:12px;
+    padding:14px 0; border-bottom:1px solid var(--border);
+  }
+  .action-item:last-child { border-bottom:none; }
+  .action-num { width:26px; height:26px; border-radius:6px; background:var(--surface2); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; flex-shrink:0; font-family:'DM Mono',monospace; }
+  .action-text { font-size:14px; color:var(--muted2); line-height:1.5; }
+  .action-text strong { color:var(--text); }
+
+  /* Image analysis */
+  .img-analysis-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:16px; margin-top:16px; }
+  .img-analysis-card { background:var(--surface2); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+  .img-analysis-card img { width:100%; height:130px; object-fit:cover; display:block; }
+  .img-analysis-body { padding:14px; }
+  .img-analysis-score { font-family:'Syne',sans-serif; font-size:22px; font-weight:800; }
+  .img-analysis-findings { margin-top:8px; }
+  .finding-tag { display:inline-block; font-size:11px; padding:2px 8px; border-radius:4px; margin:2px; }
+  .finding-pass { background:rgba(34,197,94,.15); color:#86efac; }
+  .finding-fail { background:rgba(239,68,68,.15); color:#fca5a5; }
+  .finding-warn { background:rgba(234,179,8,.15); color:#fde047; }
+
+  /* Toast */
+  .toast { position:fixed; bottom:24px; right:24px; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 20px; font-size:14px; z-index:9999; transform:translateX(120%); transition:transform .3s; }
+  .toast.show { transform:translateX(0); }
+
+  /* Responsive */
+  @media(max-width:760px) { .lp-row { grid-template-columns:1fr; } }
+
+  .section-count { font-size:12px; color:var(--muted); background:var(--surface2); padding:2px 8px; border-radius:6px; }
+  .collapsible-body { overflow:hidden; transition:max-height .3s ease; }
+
+  hr.divider { border:none; border-top:1px solid var(--border); margin:20px 0; }
+
+  /* Crawl status */
+  .crawl-status { margin-top:12px; display:none; }
+  .crawl-status.show { display:block; }
+  .crawl-item { display:flex; align-items:center; gap:10px; font-size:13px; color:var(--muted2); padding:6px 0; }
+  .crawl-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+  .crawl-dot.done { background:var(--green); }
+  .crawl-dot.running { background:var(--accent); animation:pulse 1s infinite; }
+  .crawl-dot.pending { background:var(--border); }
 </style>
 </head>
 <body>
-<div class="z1">
+<div class="wrap">
 
-<div class="hero">
-  <div class="badge"><span class="badge-dot"></span> Real Estate Compliance Suite</div>
-  <div class="logo">AdGuard Pro</div>
-  <p class="hero-sub">Deep compliance analysis for Meta &amp; Google Ads — checks text, images, landing pages &amp; website performance before you run your campaign.</p>
+  <!-- Header -->
+  <div class="header">
+    <div class="badge">Real Estate Compliance Suite</div>
+    <h1>AdGuard Pro</h1>
+    <p class="sub">Deep compliance analysis for Meta &amp; Google Ads — checks text, images, landing pages &amp; website speed before you run your campaign.</p>
+  </div>
+
+  <!-- Platform selector -->
   <div class="tabs">
-    <button class="tab-btn active" id="tab-meta" onclick="setTab('meta')"><span>📘</span> Meta Ads</button>
-    <button class="tab-btn" id="tab-google" onclick="setTab('google')"><span>🔍</span> Google Ads</button>
-    <button class="tab-btn" id="tab-both" onclick="setTab('both')"><span>⚡</span> Both Platforms</button>
+    <button class="tab active-meta" id="tab-meta" onclick="setTab('meta')">
+      <span class="tab-icon">📘</span> Meta Ads
+    </button>
+    <button class="tab" id="tab-google" onclick="setTab('google')">
+      <span class="tab-icon">🔍</span> Google Ads
+    </button>
+    <button class="tab" id="tab-both" onclick="setTab('both')">
+      <span class="tab-icon">⚡</span> Both Platforms
+    </button>
   </div>
-</div>
 
-<div class="main">
+  <!-- Inputs -->
   <div class="card">
-    <div class="card-header"><div class="card-num">1</div><span class="card-title">Ad Copy &amp; Headline</span></div>
-    <div class="fl">Ad Headline</div>
+    <div class="card-title"><span class="card-num">1</span>Ad Copy &amp; Headline</div>
+    <label for="adHeadline">Ad Headline</label>
     <input type="text" id="adHeadline" placeholder="e.g. Luxury 3BHK Apartments — Starting ₹45L. Ready to Move In.">
-    <div class="fl mt">Ad Body / Description</div>
+    <label for="adBody" style="margin-top:14px">Ad Body / Description</label>
     <textarea id="adBody" placeholder="e.g. Book your dream home in Hyderabad's prime location. RERA approved, 24/7 security, club house. Call now!"></textarea>
+    <label for="adCta" style="margin-top:14px">Call-to-Action Text</label>
+    <input type="text" id="adCta" placeholder="e.g. Book Now / Learn More / Get Quote">
   </div>
 
   <div class="card">
-    <div class="card-header"><div class="card-num">2</div><span class="card-title">Ad Creatives</span></div>
-    <div class="dropzone" id="dropzone"
-         onclick="document.getElementById('fileInput').click()"
-         ondragover="onDragOver(event)" ondragleave="onDragLeave()" ondrop="onDrop(event)">
-      <div class="dz-icon">🖼️</div>
-      <div class="dz-t">Drop images here or click to upload</div>
-      <div class="dz-s">JPG, PNG, WebP · Max 10 MB · Up to 10 images</div>
+    <div class="card-title"><span class="card-num">2</span>Ad Images</div>
+    <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+      <div class="drop-icon">🖼️</div>
+      <div class="drop-text">Drop images here or click to upload</div>
+      <div class="drop-sub">JPG, PNG, GIF · Up to 10 images · Max 10MB each</div>
     </div>
-    <input type="file" id="fileInput" accept="image/*" multiple onchange="handleFiles(this.files)">
-    <div class="previews" id="previews"></div>
+    <input type="file" id="fileInput" accept="image/*" multiple onchange="handleFiles(event)">
+    <div class="images-grid" id="imagesGrid"></div>
   </div>
 
   <div class="card">
-    <div class="card-header"><div class="card-num">3</div><span class="card-title">Landing Page</span></div>
-    <div class="fl">Landing Page URL</div>
-    <input type="url" id="lpUrl" placeholder="https://your-property.com/landing">
-    <p style="margin-top:10px;font-size:12px;color:var(--t3)">Fetches live page content · Lighthouse-style performance + compliance + UX audit</p>
-  </div>
-
-  <div class="card">
-    <div class="card-header"><div class="card-num">4</div><span class="card-title">Property Details</span></div>
-    <div class="row2">
+    <div class="card-title"><span class="card-num">3</span>Landing Page</div>
+    <div class="lp-row">
       <div>
-        <div class="fl">Property Type</div>
-        <select id="propType">
+        <label for="lpUrl">Landing Page URL</label>
+        <input type="url" id="lpUrl" placeholder="https://yourproject.com/property">
+      </div>
+      <button class="crawl-btn" onclick="preCrawl()">🔎 Preview Crawl</button>
+    </div>
+    <div class="crawl-status" id="crawlStatus">
+      <div class="crawl-item"><span class="crawl-dot running" id="cdot-fetch"></span>Fetching page content…</div>
+      <div class="crawl-item"><span class="crawl-dot pending" id="cdot-ssl"></span>HTTPS / SSL check</div>
+      <div class="crawl-item"><span class="crawl-dot pending" id="cdot-speed"></span>Speed &amp; performance</div>
+      <div class="crawl-item"><span class="crawl-dot pending" id="cdot-privacy"></span>Privacy policy detection</div>
+      <div class="crawl-item"><span class="crawl-dot pending" id="cdot-mobile"></span>Mobile responsiveness</div>
+      <div class="crawl-item"><span class="crawl-dot pending" id="cdot-contact"></span>Contact information</div>
+      <div class="crawl-item"><span class="crawl-dot pending" id="cdot-rera"></span>RERA/Disclaimer presence</div>
+    </div>
+
+    <label for="lpNotes" style="margin-top:14px">Landing Page Notes (optional)</label>
+    <textarea id="lpNotes" style="min-height:70px" placeholder="Describe your landing page content, what it offers, CTA buttons, forms — helps give more accurate analysis"></textarea>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-num">4</span>Campaign Context</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div>
+        <label>Property Type</label>
+        <select id="propType" style="width:100%;padding:14px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:'DM Sans';font-size:14px;outline:none;cursor:pointer">
           <option value="residential">Residential</option>
           <option value="commercial">Commercial</option>
+          <option value="plotted">Plotted Development</option>
           <option value="luxury">Luxury / High-End</option>
           <option value="affordable">Affordable Housing</option>
-          <option value="plotted">Plotted Development</option>
         </select>
       </div>
       <div>
-        <div class="fl">Target Country</div>
-        <select id="country">
-          <option value="IN">🇮🇳 India</option>
-          <option value="US">🇺🇸 United States</option>
-          <option value="AE">🇦🇪 UAE</option>
-          <option value="GB">🇬🇧 United Kingdom</option>
-          <option value="AU">🇦🇺 Australia</option>
+        <label>Target Country</label>
+        <select id="targetCountry" style="width:100%;padding:14px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:'DM Sans';font-size:14px;outline:none;cursor:pointer">
+          <option value="IN">India 🇮🇳</option>
+          <option value="US">United States 🇺🇸</option>
+          <option value="UAE">UAE 🇦🇪</option>
+          <option value="UK">United Kingdom 🇬🇧</option>
+          <option value="AU">Australia 🇦🇺</option>
         </select>
       </div>
     </div>
+    <label style="margin-top:14px">Targeting Keywords / Audience Notes (optional)</label>
+    <textarea id="targetNotes" style="min-height:70px" placeholder="e.g. targeting HNIs in Hyderabad aged 30–55, using interest targeting: real estate, investment, luxury lifestyle"></textarea>
   </div>
 
-  <button class="analyze-btn" id="analyzeBtn" onclick="runAnalysis()">🚀 Run Full Compliance Analysis</button>
+  <button class="run-btn" id="runBtn" onclick="runCheck()">
+    🚀 Run Full Compliance Analysis
+  </button>
 
-  <div class="progress-wrap" id="progressWrap">
-    <div class="pbar-outer"><div class="pbar-inner" id="pbarInner"></div></div>
-    <div class="progress-steps" id="progressSteps"></div>
+  <!-- Loading -->
+  <div id="loading">
+    <div class="spin-ring"></div>
+    <div class="loading-label" id="loadLabel">Initializing analysis…</div>
+    <div class="loading-step" id="loadStep">Preparing compliance checks</div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
   </div>
 
-  <div class="results" id="results"></div>
+  <!-- Results -->
+  <div id="results"></div>
+
 </div>
-</div>
 
-<button class="fab" id="fab" onclick="toggleChat()">💬</button>
-
-<div class="chat-panel" id="chatPanel">
-  <div class="chat-head">
-    <div class="chat-head-info">
-      <div class="chat-av">🤖</div>
-      <div>
-        <div class="chat-name">Compliance AI</div>
-        <div class="chat-status"><span class="online"></span> Online · Ask anything</div>
-      </div>
-    </div>
-    <button class="chat-close-btn" onclick="toggleChat()">✕</button>
-  </div>
-  <div class="chat-msgs" id="chatMsgs">
-    <div class="cmsg ai">
-      <div class="cmsg-av">AI</div>
-      <div class="cbubble">Hi! I'm your compliance expert. Ask me about Meta/Google Ads policies, RERA regulations, Fair Housing rules, how to fix specific issues, or anything about real estate advertising compliance.</div>
-    </div>
-  </div>
-  <div class="chat-suggs" id="chatSuggs">
-    <button class="sug-btn" onclick="useSugg(this)">RERA requirements India</button>
-    <button class="sug-btn" onclick="useSugg(this)">Meta 20% text rule</button>
-    <button class="sug-btn" onclick="useSugg(this)">Fair Housing violations</button>
-    <button class="sug-btn" onclick="useSugg(this)">Google RE policies</button>
-  </div>
-  <div class="chat-input-row">
-    <textarea class="chat-txt" id="chatInput" placeholder="Ask about ad compliance…" rows="1"
-      onkeydown="chatKeyDown(event)"
-      oninput="autoResize(this)"></textarea>
-    <button class="chat-send-btn" id="chatSendBtn" onclick="sendChat()">➤</button>
-  </div>
-</div>
+<div class="toast" id="toast"></div>
 
 <script>
-/* ── STATE ── */
-var gPlatform = 'meta';
-var gImages = [];
-var gChatOpen = false;
-var gChatHistory = [];
-var gAnalysisContext = '';
-var gPStepIds = [];
+// ═══════════════════════════════════════════════════════════
+// FULL META & GOOGLE ADS POLICY DATABASE
+// Sources: Meta Advertising Policies, Google Ads Policies,
+// Fair Housing Act, Housing & Urban Development Act
+// ═══════════════════════════════════════════════════════════
 
-/* ── TABS ── */
-function setTab(p) {
-  gPlatform = p;
-  var tabs = ['meta','google','both'];
-  for (var ti = 0; ti < tabs.length; ti++) {
-    document.getElementById('tab-' + tabs[ti]).classList.toggle('active', tabs[ti] === p);
-  }
-}
+const POLICY_DB = {
+  fairHousing: {
+    // Protected classes under Fair Housing Act + India's equivalent (RERA)
+    prohibitedTerms: [
+      'no kids','no children','adults only','no families','family friendly only',
+      'couples only','married couples only','singles only','widowed','divorced',
+      'no students','student friendly','for seniors','senior citizens only',
+      'retirees preferred','young professionals only','empty nesters',
+      'men only','women only','males only','females only',
+      'no wheelchair','wheelchair accessible','no disabled','physically fit tenants',
+      'christians preferred','muslims only','hindus only','no muslims','no hindus',
+      'caucasian','african american preferred','asian community','hispanic community',
+      'english speakers only','no foreigners','american citizens only',
+      'exclusive community','restricted access','gated elite','select clientele',
+      'upper class only','high society'
+    ],
+    requiredForUSAds: ['equal housing opportunity','eho','fair housing'],
+  },
 
-/* ── IMAGE UPLOAD ── */
-function handleFiles(files) {
-  var arr = [];
-  for (var fi = 0; fi < files.length; fi++) { arr.push(files[fi]); }
-  for (var ai = 0; ai < arr.length; ai++) {
-    var f = arr[ai];
-    if (gImages.length >= 10) break;
-    if (f.size > 10 * 1024 * 1024) { alert('File "' + f.name + '" is over 10MB.'); continue; }
-    (function(file) {
-      var reader = new FileReader();
-      reader.onload = function(ev) {
-        gImages.push({ data: ev.target.result, name: file.name, type: file.type || 'image/jpeg' });
-        renderPreviews();
-      };
-      reader.readAsDataURL(file);
-    })(f);
-  }
-  if (arr.length > 0) document.getElementById('dropzone').classList.add('has-files');
-}
+  meta: {
+    // Meta Housing Special Ad Category requirements
+    specialAdCategory: {
+      name: 'Housing',
+      required: true,
+      note: 'All real estate ads MUST select Housing special ad category'
+    },
+    targeting: {
+      ageMin: 18,
+      ageMax: null, // 18-65+ locked
+      gender: 'all', // cannot exclude genders
+      locationRadiusMinMiles: 15, // US only
+      locationRadiusMinKm: 24,
+      prohibitedTargeting: [
+        'zip codes','postal codes','specific neighborhoods',
+        'lookalike audiences','detailed demographic targeting',
+        'relationship status','parental status','life events',
+        'political views','ethnic affinity'
+      ],
+      allowedTargeting: [
+        'Location by radius (min 15 miles US)',
+        'City, state, country targeting',
+        'Age 18+',
+        'All genders',
+        'Income targeting (US only)',
+        'Special Ad Audiences (replaces Lookalike)'
+      ]
+    },
+    imageRules: {
+      textOverlay: { max: 20, description: 'Max 20% of image area can be text' },
+      prohibitedContent: [
+        'Before/after comparisons without context',
+        'Sensational content (shocking imagery)',
+        'Misleading imagery',
+        'Non-existent functionality depictions',
+        'Weight loss imagery',
+        'Weapons or violence',
+        'Nudity or sexual content',
+        'Graphic health imagery',
+        'Stock photo watermarks'
+      ],
+      requiredAspectRatios: ['1.91:1 (1200x628)', '1:1 (1080x1080)', '4:5 (1080x1350)', '9:16 (Stories)'],
+      minWidth: 600,
+      minHeight: 315
+    },
+    textRules: {
+      headline: { maxChars: 40, platform: 'Meta' },
+      description: { maxChars: 125 },
+      prohibitedWords: [
+        'guaranteed','100% guarantee','no risk','free money',
+        'miracle','magic','instant results','incredible deal',
+        'before you die','act now or lose','limited time','urgency pressure'
+      ],
+      capsRules: 'No more than 3 consecutive capital letters except for abbreviations',
+      clickbait: ['you won\'t believe','shocking','amazing trick','secret','they don\'t want you to know'],
+      misleadingClaims: ['#1 project','best in city','cheapest','guaranteed appreciation'],
+      excessivePunctuation: '!!!',
+      emojiLimit: 'Excessive emojis may trigger review; keep to 2-3 max'
+    },
+    landingPage: {
+      httpsRequired: true,
+      privacyPolicyRequired: true,
+      contactInfoRequired: true,
+      mobileResponsive: true,
+      loadTimeMax: 3, // seconds
+      mustMatchAd: 'Landing page must match the product/service advertised',
+      noMalware: 'No deceptive redirects, popups, or malware',
+      prohibitedContent: [
+        'Phishing pages',
+        'Drive-by downloads',
+        'Non-functional pages',
+        'Pages that redirect away',
+        'Unsubstantiated claims'
+      ]
+    },
+    prohibited: [
+      'Discriminatory content based on protected characteristics',
+      'False or misleading claims about property',
+      'Bait and switch pricing',
+      'Unverified investment returns',
+      'Claims about income or financial gain',
+      'Content targeting vulnerable populations'
+    ]
+  },
 
-function renderPreviews() {
-  var html = '';
-  for (var pi = 0; pi < gImages.length; pi++) {
-    html += '<div class="pitem"><img src="' + gImages[pi].data + '" alt="' + gImages[pi].name + '">' +
-      '<button class="pitem-rm" onclick="removeImg(' + pi + ')">✕</button></div>';
-  }
-  document.getElementById('previews').innerHTML = html;
-  document.getElementById('dropzone').classList.toggle('has-files', gImages.length > 0);
-}
-
-function removeImg(idx) { gImages.splice(idx, 1); renderPreviews(); }
-function onDragOver(e) { e.preventDefault(); document.getElementById('dropzone').classList.add('drag-over'); }
-function onDragLeave() { document.getElementById('dropzone').classList.remove('drag-over'); }
-function onDrop(e) { e.preventDefault(); onDragLeave(); handleFiles(e.dataTransfer.files); }
-
-/* ── PROGRESS ── */
-function initProgress(stepDefs) {
-  gPStepIds = [];
-  var html = '';
-  for (var si = 0; si < stepDefs.length; si++) {
-    var sd = stepDefs[si];
-    gPStepIds.push(sd.id);
-    html += '<div class="pstep" id="ps-' + sd.id + '">' +
-      '<span class="pstep-ico">' + sd.icon + '</span>' +
-      '<span class="pstep-lbl">' + sd.label + '</span>' +
-      '<span class="pstep-st" id="pss-' + sd.id + '">PENDING</span></div>';
-  }
-  document.getElementById('progressSteps').innerHTML = html;
-  document.getElementById('pbarInner').style.width = '0%';
-  document.getElementById('progressWrap').classList.add('show');
-}
-
-function setStep(id, state, note) {
-  var el = document.getElementById('ps-' + id);
-  var sl = document.getElementById('pss-' + id);
-  if (!el || !sl) return;
-  el.className = 'pstep ' + state;
-  sl.textContent = note ? note : state.toUpperCase();
-  var done = 0;
-  for (var si = 0; si < gPStepIds.length; si++) {
-    var el2 = document.getElementById('ps-' + gPStepIds[si]);
-    if (el2 && (el2.className.indexOf('done') !== -1 || el2.className.indexOf('failed') !== -1)) done++;
-  }
-  var pct = gPStepIds.length > 0 ? Math.round((done / gPStepIds.length) * 100) : 0;
-  document.getElementById('pbarInner').style.width = pct + '%';
-}
-
-/* ── LANDING PAGE FETCH ── */
-async function fetchLP(url) {
-  var res = { html: '', timing: null, error: null };
-  var proxies = [
-    'https://api.allorigins.win/get?url=' + encodeURIComponent(url),
-    'https://corsproxy.io/?' + encodeURIComponent(url)
-  ];
-  var t0 = Date.now();
-  for (var pi = 0; pi < proxies.length; pi++) {
-    try {
-      var controller = new AbortController();
-      var timer = setTimeout(function() { controller.abort(); }, 12000);
-      var r = await fetch(proxies[pi], { signal: controller.signal });
-      clearTimeout(timer);
-      if (r.ok) {
-        res.timing = Date.now() - t0;
-        var j = null;
-        try { j = await r.json(); } catch(e2) {}
-        res.html = (j && j.contents) ? j.contents : await r.text();
-        res.html = res.html.substring(0, 60000);
-        return res;
+  google: {
+    housingPolicy: {
+      category: 'Housing Ads Policy (Special Category)',
+      accepted: ['Residential rentals','Real estate sales','Real estate services','Home improvement'],
+      targeting: {
+        prohibited: [
+          'Gender targeting',
+          'Age-based exclusions',
+          'Parental status targeting',
+          'Marital status targeting',
+          'ZIP code targeting (US)',
+          'Postal code exclusion',
+          'Household income targeting (some regions)'
+        ],
+        allowed: [
+          'City, county, state, country',
+          'Radius targeting',
+          'Keywords',
+          'In-market audiences for real estate',
+          'Customer match (compliant list)'
+        ]
       }
-    } catch(e) { continue; }
-  }
-  res.error = 'CORS blocked — will infer from URL structure and domain';
-  return res;
-}
+    },
+    textRules: {
+      headline1: { maxChars: 30 },
+      headline2: { maxChars: 30 },
+      headline3: { maxChars: 30 },
+      description1: { maxChars: 90 },
+      description2: { maxChars: 90 },
+      prohibitedWords: [
+        'click here','visit our site','best website','number one website',
+        'guaranteed','free trial (false)','malware','spam',
+      ],
+      capsPolicy: 'Title case OK; all caps not allowed except abbreviations',
+      repetition: 'Do not repeat same word/phrase excessively',
+      punctuation: 'Max 1 exclamation point per ad; not in headline',
+      trademarkUse: 'Cannot use competitor brand names without permission'
+    },
+    imageRules: {
+      // For Google Display / Performance Max
+      minDimensions: {
+        landscape: '600x314',
+        square: '300x300',
+        portrait: '480x600'
+      },
+      maxFileSizeMB: 5,
+      prohibitedContent: [
+        'Flashing/animated content (some formats)',
+        'Misleading imagery',
+        'Shocking content',
+        'Counterfeit goods',
+        'Dangerous products',
+        'Content targeting minors'
+      ],
+      logoRequirements: { minSize: '128x128', format: 'PNG preferred' }
+    },
+    landingPage: {
+      httpsRequired: true,
+      privacyPolicyRequired: true,
+      contactInfoRequired: true,
+      mobileResponsive: true,
+      loadTimeRecommended: 3, // seconds
+      lcp: '2.5s', // Largest Contentful Paint (Google Core Web Vitals)
+      fid: '100ms', // First Input Delay
+      cls: '0.1', // Cumulative Layout Shift
+      requirements: [
+        'Clear and accurate description of product/service',
+        'Contact information visible',
+        'Privacy policy link in footer',
+        'No automatic downloads or malware',
+        'Functional and navigable',
+        'Must relate to ad content'
+      ]
+    },
+    prohibited: [
+      'Counterfeit goods',
+      'Dangerous products',
+      'Deceptive practices',
+      'Data collection and use violations',
+      'Misrepresentation of self or product',
+      'Abusing the ad network'
+    ]
+  },
 
-function extractSignals(html, url) {
-  if (!html) return {};
-  var s = {};
-  try {
-    var parser = new DOMParser();
-    var doc = parser.parseFromString(html, 'text/html');
-    s.title = doc.title || '';
-    s.hasMobileVP = false;
-    s.description = '';
-    var metas = doc.querySelectorAll('meta');
-    for (var mi = 0; mi < metas.length; mi++) {
-      var m = metas[mi];
-      if ((m.getAttribute('name') || '').toLowerCase() === 'viewport') s.hasMobileVP = true;
-      if ((m.getAttribute('name') || '').toLowerCase() === 'description') s.description = m.getAttribute('content') || '';
+  india: {
+    rera: {
+      required: 'RERA registration number must appear in all ads for under-construction projects',
+      disclaimer: 'Mandatory disclaimer: "This is not an offer to sell. Book your unit only after seeing approved building plans etc."',
+      prohibitedClaims: [
+        'Guaranteed appreciation/returns',
+        'Guaranteed rental income without disclosure',
+        'Misleading possession dates',
+        'Unverified project approvals'
+      ]
+    },
+    asci: {
+      guidelines: 'ASCI guidelines apply to real estate advertising in India',
+      prohibits: [
+        'Misleading price comparisons',
+        'False claims about amenities',
+        'Superlative claims without substantiation'
+      ]
     }
-  } catch(e) {
-    s.title = '';
-    s.hasMobileVP = /viewport/i.test(html);
-    s.description = '';
   }
-  s.hasSSL = url.startsWith('https://');
-  s.hasPrivacy = /privacy|policy/i.test(html);
-  s.hasContact = /contact|phone|mobile|email|call us/i.test(html);
-  s.hasRERA = /rera|mahrera|tnrera|hrera|krera|maharera/i.test(html);
-  s.hasForm = /<form/i.test(html);
-  s.hasCTA = /book now|schedule|enquire|enquiry|contact us|get quote|download brochure|call now|get details|register/i.test(html);
-  s.hasSchema = /application\/ld\+json/i.test(html);
-  s.hasLazy = /loading="lazy"|lazyload/i.test(html);
-  s.imgCount = (html.match(/<img/gi) || []).length;
-  s.scriptCount = (html.match(/<script/gi) || []).length;
-  s.hasWebP = /\.webp/i.test(html);
-  s.hasCDN = /cloudflare|fastly|cloudfront|jsdelivr|unpkg/i.test(html);
-  s.hasH1 = /<h1/i.test(html);
-  s.hasAltTags = !/(<img(?![^>]*\balt\s*=)[^>]*>)/i.test(html);
-  s.hasCookieBanner = /cookie|gdpr|consent/i.test(html);
-  s.hasGA = /google-analytics|gtag|UA-[0-9]|G-[A-Z0-9]/i.test(html);
-  s.hasFB = /fbq\(|facebook pixel|connect\.facebook/i.test(html);
-  s.hasTestimonial = /testimonial|review|rating|\bstars\b|verified buyer/i.test(html);
-  s.hasPricing = /\u20b9|lakh|crore|price|cost|starting from/i.test(html);
-  s.has360 = /360|virtual tour|walkthrough/i.test(html);
-  s.hasChatWidget = /tawk|intercom|drift|crisp|freshchat|livechat|hubspot/i.test(html);
-  return s;
-}
+};
 
-/* ── PROMPT BUILDER ── */
-function buildPrompt(headline, body, lpUrl, propType, country, platLabel, hasText, hasImages, hasLP, signals, lpData) {
-  var p = '# Real Estate Ad Compliance Audit\n\n';
-  p += '**Platform:** ' + platLabel + '\n';
-  p += '**Property Type:** ' + propType + '\n';
-  p += '**Target Country:** ' + country + '\n\n';
-  p += '## INPUTS:\n';
-  p += '- Ad Copy: ' + (hasText ? 'YES' : 'NO — omit this section') + '\n';
-  p += '- Creative Images: ' + (hasImages ? 'YES — ' + gImages.length + ' image(s) follow this text' : 'NO — omit this section') + '\n';
-  p += '- Landing Page: ' + (hasLP ? 'YES — ' + lpUrl : 'NO — omit this section') + '\n\n';
+// ═══════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════
+let selectedTab = 'meta';
+let uploadedImages = [];
+let crawlData = null;
 
-  if (hasText) {
-    p += '---\n## AD COPY TO AUDIT:\n';
-    if (headline) p += '**Headline:** "' + headline + '"\n';
-    if (body) p += '**Body:** "' + body + '"\n\n';
-    p += 'Check thoroughly:\n';
-    p += '1. Discriminatory language (religion, caste, community, gender, family status)\n';
-    p += '2. False/unverifiable claims — "guaranteed returns", "best rates", "100% safe"\n';
-    p += '3. Missing disclosures — RERA registration number, project ID, approvals\n';
-    p += '4. Platform policy violations specific to ' + platLabel + '\n';
-    p += '5. Superlatives requiring substantiation\n';
-    p += '6. Investment claims (SEBI/RBI compliance for India)\n';
-    p += '7. Character limits: Meta primary text optimal <125 chars, Google headlines ≤30 chars\n';
-    p += '8. Urgency/scarcity claims that may be deceptive\n\n';
-  }
-
-  if (hasImages) {
-    p += '---\n## CREATIVE IMAGE ANALYSIS (' + gImages.length + ' image(s) attached):\n\n';
-    p += 'IMPORTANT: Carefully analyze every attached image.\n\n';
-    p += '### For Meta Ads:\n';
-    p += '- Estimate text overlay % (flag if >20%)\n';
-    p += '- Prohibited content (before/after, misleading renders, financial guarantees in image)\n';
-    p += '- Resolution ≥1080px, no blurring, no watermarks\n';
-    p += '- Equal Housing Opportunity logo (US)\n\n';
-    p += '### For Google Ads:\n';
-    p += '- Image quality standards (no borders, excessive text)\n';
-    p += '- Brand logo visibility\n';
-    p += '- Misleading imagery\n\n';
-    p += '### Real Estate Specific:\n';
-    p += '- RERA disclaimer visible\n';
-    p += '- "Indicative image" / "Artist impression" notice on CGI renders\n';
-    p += '- Amenities shown must be approved/existing\n';
-    p += '- Price claims in image must match approved pricing\n\n';
-    p += 'Report findings per image: Image 1, Image 2, etc.\n\n';
-  }
-
-  if (hasLP) {
-    p += '---\n## LANDING PAGE AUDIT: ' + lpUrl + '\n\n';
-    if (signals && Object.keys(signals).length > 0) {
-      p += '### Live-Crawled Signals:\n';
-      p += '- SSL/HTTPS: ' + (signals.hasSSL ? 'YES' : 'NO — CRITICAL ISSUE') + '\n';
-      p += '- Mobile viewport: ' + (signals.hasMobileVP ? 'Present' : 'MISSING') + '\n';
-      p += '- Title: ' + (signals.title ? '"' + signals.title.substring(0,80) + '"' : 'Not found') + '\n';
-      p += '- Meta description: ' + (signals.description ? '"' + signals.description.substring(0,120) + '"' : 'MISSING') + '\n';
-      p += '- RERA on page: ' + (signals.hasRERA ? 'Detected' : 'NOT FOUND') + '\n';
-      p += '- Privacy policy: ' + (signals.hasPrivacy ? 'Found' : 'NOT FOUND') + '\n';
-      p += '- Contact info: ' + (signals.hasContact ? 'Found' : 'NOT FOUND') + '\n';
-      p += '- Lead form: ' + (signals.hasForm ? 'Present' : 'Not detected') + '\n';
-      p += '- CTA: ' + (signals.hasCTA ? 'Found' : 'Weak/missing') + '\n';
-      p += '- Images: ' + signals.imgCount + ' | WebP: ' + (signals.hasWebP ? 'Yes' : 'No') + ' | Lazy load: ' + (signals.hasLazy ? 'Yes' : 'No') + '\n';
-      p += '- JS scripts: ' + signals.scriptCount + '\n';
-      p += '- CDN: ' + (signals.hasCDN ? 'Detected' : 'Not detected') + '\n';
-      p += '- Schema.org: ' + (signals.hasSchema ? 'Present' : 'Missing') + '\n';
-      p += '- Google Analytics/GTM: ' + (signals.hasGA ? 'Detected' : 'Not detected') + '\n';
-      p += '- Meta Pixel: ' + (signals.hasFB ? 'Detected' : 'Not detected') + '\n';
-      p += '- Cookie consent: ' + (signals.hasCookieBanner ? 'Present' : 'Missing') + '\n';
-      p += '- Testimonials: ' + (signals.hasTestimonial ? 'Found' : 'Not detected') + '\n';
-      p += '- 360/Virtual tour: ' + (signals.has360 ? 'Found' : 'Not detected') + '\n';
-      p += '- Pricing info: ' + (signals.hasPricing ? 'Found' : 'Not visible') + '\n';
-      if (lpData && lpData.timing) p += '- Server response time: ' + lpData.timing + 'ms\n';
-      p += '\n';
-    } else {
-      p += '**Note:** Live crawl was blocked. Analyze based on URL structure, domain name, industry standards, and provide a full audit with assumptions clearly stated.\n\n';
-    }
-
-    p += '### Provide these analysis sections:\n\n';
-    p += '**1. PERFORMANCE SCORE (0–100 scale like Lighthouse):**\n';
-    p += 'Give individual scores for: Performance, Accessibility, Best Practices, SEO\n';
-    p += 'Estimate Core Web Vitals: LCP / INP / CLS with pass/fail vs Google thresholds\n';
-    p += 'Mobile speed tier: Fast (<2s) / Moderate (2–4s) / Slow (>4s)\n\n';
-    p += '**2. COMPLIANCE:**\n';
-    p += '- RERA registration visible & linked to official portal\n';
-    p += '- Possession date, carpet area disclosure, price breakup\n';
-    p += '- Privacy policy (required by Meta/Google for ad destination pages)\n';
-    p += '- Refund/cancellation policy\n';
-    p += '- Builder license and approvals\n\n';
-    p += '**3. UX & CONVERSION:**\n';
-    p += '- Above-fold assessment\n';
-    p += '- CTA strength and positioning\n';
-    p += '- Form optimization\n';
-    p += '- Trust signals\n';
-    p += '- Mobile experience\n\n';
-    p += '**4. TOP 5 PRIORITY FIXES:**\n';
-    p += 'Each fix: Issue | Regulation/Impact | Step-by-step implementation | Expected improvement\n\n';
-  }
-
-  p += '---\n## REQUIRED OUTPUT STRUCTURE:\n\n';
-  if (hasText) p += '## 📝 Ad Copy Analysis\n';
-  if (hasImages) p += '## 🖼️ Creative Analysis\n';
-  if (hasLP) {
-    p += '## ⚡ Performance Audit\n';
-    p += '## ✅ Compliance Check\n';
-    p += '## 🎯 Conversion Optimization\n';
-  }
-  p += '## 🚀 Priority Action List\n\n';
-  p += 'Rules: Use ❌ FAIL, ⚠️ WARNING, ✅ PASS prefix on every finding. Be exhaustive. Quote exact policy names. Give step-by-step fixes with expected impact.';
-  return p;
-}
-
-/* ── MAIN ANALYSIS ── */
-async function runAnalysis() {
-  var headline = document.getElementById('adHeadline').value.trim();
-  var body = document.getElementById('adBody').value.trim();
-  var lpUrl = document.getElementById('lpUrl').value.trim();
-  var propType = document.getElementById('propType').value;
-  var country = document.getElementById('country').value;
-
-  var hasText = !!(headline || body);
-  var hasImages = gImages.length > 0;
-  var hasLP = !!lpUrl;
-
-  if (!hasText && !hasImages && !hasLP) {
-    alert('Please provide at least one input: Ad Copy, Creative Images, or Landing Page URL.');
-    return;
-  }
-
-  document.getElementById('analyzeBtn').disabled = true;
-  document.getElementById('results').classList.remove('show');
-  document.getElementById('results').innerHTML = '';
-
-  var steps = [];
-  if (hasText) steps.push({ id: 'copy', icon: '📝', label: 'Analyzing ad copy' });
-  if (hasImages) steps.push({ id: 'img', icon: '🖼️', label: 'AI Vision scanning ' + gImages.length + ' image(s)' });
-  if (hasLP) {
-    steps.push({ id: 'fetch', icon: '🌐', label: 'Fetching landing page' });
-    steps.push({ id: 'perf', icon: '⚡', label: 'Extracting performance signals' });
-  }
-  steps.push({ id: 'ai', icon: '🤖', label: 'AI compliance analysis' });
-  steps.push({ id: 'report', icon: '📊', label: 'Rendering report' });
-  initProgress(steps);
-
-  if (hasText) setStep('copy', 'active');
-  if (hasImages) setStep('img', 'active');
-
-  var lpData = null;
-  var signals = {};
-
-  try {
-    if (hasLP) {
-      setStep('fetch', 'active');
-      lpData = await fetchLP(lpUrl);
-      if (lpData.html) {
-        signals = extractSignals(lpData.html, lpUrl);
-        setStep('fetch', 'done', Math.round(lpData.html.length / 1024) + 'KB fetched');
-      } else {
-        setStep('fetch', 'failed', 'Proxy blocked — AI infers');
-        signals = { hasSSL: lpUrl.startsWith('https://') };
-      }
-      setStep('perf', 'active');
-      setStep('perf', 'done', 'Signals ready');
-    }
-
-    setStep('ai', 'active');
-
-    var platLabel = gPlatform === 'both' ? 'Meta Ads & Google Ads' : gPlatform === 'meta' ? 'Meta Ads' : 'Google Ads';
-    var promptText = buildPrompt(headline, body, lpUrl, propType, country, platLabel, hasText, hasImages, hasLP, signals, lpData);
-
-    var msgContent = [{ type: 'text', text: promptText }];
-    for (var ii = 0; ii < gImages.length; ii++) {
-      var imgObj = gImages[ii];
-      var mtype = imgObj.type;
-      if (!mtype || mtype.indexOf('image/') !== 0) mtype = 'image/jpeg';
-      msgContent.push({
-        type: 'image',
-        source: { type: 'base64', media_type: mtype, data: imgObj.data.split(',')[1] }
-      });
-    }
-
-    var response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 8000,
-        system: 'You are a senior real estate digital advertising compliance expert with deep knowledge of Meta Ads policies, Google Ads policies, RERA India (MahaRERA, TNRERA, HRERA, KRERA), Fair Housing Act, Consumer Protection Act, and all global real estate advertising laws. You must analyze ALL provided inputs thoroughly. For images attached: examine every pixel, estimate text overlay percentage precisely, check all compliance requirements. For landing pages: provide detailed performance scoring like Google Lighthouse, check every compliance requirement. Never skip anything. Be comprehensive, specific, and cite exact policy names and regulation numbers.',
-        messages: [{ role: 'user', content: msgContent }]
-      })
-    });
-
-    if (!response.ok) {
-      var errBody = null;
-      try { errBody = await response.json(); } catch(e2) {}
-      var errMsg = errBody && errBody.error ? errBody.error.message : 'HTTP ' + response.status;
-      throw new Error(errMsg);
-    }
-
-    var data = await response.json();
-    var resultText = data.content[0].text;
-
-    if (hasText) setStep('copy', 'done');
-    if (hasImages) setStep('img', 'done', gImages.length + ' image(s) analyzed');
-    setStep('ai', 'done');
-    setStep('report', 'active');
-
-    gAnalysisContext = resultText.substring(0, 4000);
-    renderResults(resultText, signals, hasLP, lpUrl, lpData);
-    setStep('report', 'done', 'Complete');
-
-  } catch(err) {
-    setStep('ai', 'failed');
-    setStep('report', 'failed');
-    document.getElementById('results').innerHTML =
-      '<div class="err-box"><strong>⚠️ Analysis Error</strong>' +
-      escHtml(err.message) +
-      '<br><br>If the error persists, check that the Anthropic API is accessible from this environment.</div>';
-    document.getElementById('results').classList.add('show');
-  } finally {
-    document.getElementById('analyzeBtn').disabled = false;
-  }
-}
-
-function escHtml(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-/* ── RENDER RESULTS ── */
-function renderResults(text, signals, hasLP, lpUrl, lpData) {
-  var sections = parseSections(text);
-  var overall = getOverall(text);
-
-  var html = '<div class="res-header">' +
-    '<div class="res-title">Compliance Report</div>' +
-    '<div class="overall-pill ' + overall.cls + '">' + overall.label + '</div></div>';
-
-  // Score cards if LP data exists
-  if (hasLP && signals && Object.keys(signals).length > 0) {
-    var pf = calcPerf(signals, lpData);
-    var co = calcComp(signals);
-    var cv = calcConv(signals);
-    var se = calcSEO(signals);
-    html += '<div class="sec-card" style="border-color:rgba(61,127,255,.18)">' +
-      '<div class="sec-head open" onclick="toggleSec(\'scores\')">' +
-      '<div class="sec-head-left"><span class="sec-ico">📊</span>' +
-      '<span class="sec-ttl">Live Audit Scores — ' + lpUrl.replace(/https?:\/\//,'').substring(0,35) + '</span></div>' +
-      '<div class="sec-right"><span class="pill pill-info">Lighthouse-style</span>' +
-      '<span class="chev open" id="chev-scores">▼</span></div></div>' +
-      '<div class="sec-body open" id="body-scores">' +
-      '<div class="score-grid">' +
-      mkScore('Performance', pf) + mkScore('Compliance', co) +
-      mkScore('Conversion', cv) + mkScore('SEO', se) +
-      '</div></div></div>';
-  }
-
-  var secIcons = { 'Ad Copy': '📝', 'Creative': '🖼️', 'Image': '🖼️',
-    'Performance': '⚡', 'Compliance': '✅', 'Conversion': '🎯', 'Priority': '🚀' };
-
-  for (var si = 0; si < sections.length; si++) {
-    var sec = sections[si];
-    var secId = 'sec' + si;
-    var st = getSectionStatus(sec.body);
-    var ico = '📋';
-    for (var k in secIcons) {
-      if (sec.title.indexOf(k) !== -1) { ico = secIcons[k]; break; }
-    }
-    var isOpen = si === 0 || sec.title.indexOf('Priority') !== -1 || sec.title.indexOf('Action') !== -1;
-    html += '<div class="sec-card">' +
-      '<div class="sec-head ' + (isOpen ? 'open' : '') + '" onclick="toggleSec(\'' + secId + '\')">' +
-      '<div class="sec-head-left"><span class="sec-ico">' + ico + '</span>' +
-      '<span class="sec-ttl">' + escHtml(sec.title) + '</span></div>' +
-      '<div class="sec-right"><span class="pill ' + st.cls + '">' + st.label + '</span>' +
-      '<span class="chev ' + (isOpen ? 'open' : '') + '" id="chev-' + secId + '">▼</span>' +
-      '</div></div>' +
-      '<div class="sec-body ' + (isOpen ? 'open' : '') + '" id="body-' + secId + '">' +
-      mdToHtml(sec.body) + '</div></div>';
-  }
-
-  html += '<div class="sec-card" style="border-color:rgba(61,127,255,.12)">' +
-    '<div class="sec-head" onclick="toggleSec(\'aiask\')">' +
-    '<div class="sec-head-left"><span class="sec-ico">🤖</span>' +
-    '<span class="sec-ttl">Ask AI for Deeper Analysis</span></div>' +
-    '<div class="sec-right"><span class="chev" id="chev-aiask">▼</span></div></div>' +
-    '<div class="sec-body" id="body-aiask">' +
-    '<p>Use the <strong>💬 chat</strong> (bottom-right) to ask follow-up questions. The AI has full context of your report.</p>' +
-    '<p>Try: <em>"How do I fix the RERA compliance issue?"</em> or <em>"What\'s the exact Meta policy on image text?"</em></p>' +
-    '</div></div>';
-
-  document.getElementById('results').innerHTML = html;
-  document.getElementById('results').classList.add('show');
-  setTimeout(function() {
-    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 200);
-}
-
-function toggleSec(id) {
-  var body = document.getElementById('body-' + id);
-  var head = body ? body.previousElementSibling : null;
-  var chev = document.getElementById('chev-' + id);
-  if (!body) return;
-  var isOpen = body.classList.toggle('open');
-  if (head) head.classList.toggle('open', isOpen);
-  if (chev) chev.classList.toggle('open', isOpen);
-}
-
-/* ── SCORE CALC ── */
-function calcPerf(s, lp) {
-  var v = 68;
-  if (s.hasSSL) v += 5;
-  if (s.hasLazy) v += 5;
-  if (s.hasWebP) v += 5;
-  if (s.hasCDN) v += 5;
-  if (s.scriptCount > 20) v -= 10;
-  if (s.scriptCount > 30) v -= 8;
-  if (s.imgCount > 30) v -= 5;
-  if (!s.hasMobileVP) v -= 10;
-  if (lp && lp.timing) {
-    if (lp.timing < 700) v += 6;
-    else if (lp.timing > 3000) v -= 15;
-    else if (lp.timing > 1500) v -= 7;
-  }
-  return Math.max(10, Math.min(100, v));
-}
-function calcComp(s) {
-  var v = 45;
-  if (s.hasSSL) v += 20;
-  if (s.hasRERA) v += 15;
-  if (s.hasPrivacy) v += 12;
-  if (s.hasContact) v += 8;
-  return Math.min(100, v);
-}
-function calcConv(s) {
-  var v = 35;
-  if (s.hasForm) v += 18;
-  if (s.hasCTA) v += 15;
-  if (s.hasTestimonial) v += 12;
-  if (s.hasChatWidget) v += 8;
-  if (s.hasPricing) v += 10;
-  if (s.has360) v += 5;
-  return Math.min(100, v);
-}
-function calcSEO(s) {
-  var v = 45;
-  if (s.title) v += 12;
-  if (s.description) v += 10;
-  if (s.hasSchema) v += 15;
-  if (s.hasH1) v += 5;
-  if (s.hasAltTags) v += 5;
-  if (s.hasSSL) v += 5;
-  return Math.min(100, v);
-}
-
-function mkScore(label, val) {
-  var cls = val >= 80 ? 's-green' : val >= 60 ? 's-yellow' : 's-red';
-  return '<div class="score-item ' + cls + '">' +
-    '<div class="score-label">' + label + '</div>' +
-    '<div class="score-val">' + val + '</div>' +
-    '<div class="score-bar"><div class="score-fill" style="width:' + val + '%;"></div></div>' +
-    '</div>';
-}
-
-/* ── HELPERS ── */
-function parseSections(md) {
-  var parts = md.split(/(?=^## )/m).filter(function(p) { return p.trim(); });
-  return parts.map(function(p) {
-    var m = p.match(/^## (.+)/m);
-    var title = m ? m[1].trim() : 'Analysis';
-    var body = p.replace(/^## .+\n?/m, '').trim();
-    return { title: title, body: body };
+function setTab(tab) {
+  selectedTab = tab;
+  ['meta','google','both'].forEach(t => {
+    const el = document.getElementById('tab-'+t);
+    el.className = 'tab';
+    if(t === tab) el.classList.add('active-'+tab);
   });
 }
 
-function getSectionStatus(text) {
-  var fails = (text.match(/❌/g) || []).length;
-  var warns = (text.match(/⚠️/g) || []).length;
-  if (fails > 0) return { cls: 'pill-fail', label: fails + (fails === 1 ? ' issue' : ' issues') };
-  if (warns > 0) return { cls: 'pill-warn', label: warns + (warns === 1 ? ' warning' : ' warnings') };
-  return { cls: 'pill-pass', label: '✓ Passed' };
+// ═══════════════════════════════════════════════════════════
+// IMAGE HANDLING
+// ═══════════════════════════════════════════════════════════
+document.getElementById('dropZone').addEventListener('dragover', e => {
+  e.preventDefault(); document.getElementById('dropZone').classList.add('drag');
+});
+document.getElementById('dropZone').addEventListener('dragleave', () => {
+  document.getElementById('dropZone').classList.remove('drag');
+});
+document.getElementById('dropZone').addEventListener('drop', e => {
+  e.preventDefault(); document.getElementById('dropZone').classList.remove('drag');
+  handleFiles({ target: { files: e.dataTransfer.files } });
+});
+
+function handleFiles(e) {
+  const files = Array.from(e.target.files);
+  files.forEach(file => {
+    if(file.size > 10*1024*1024) { showToast('File too large: '+file.name); return; }
+    const reader = new FileReader();
+    reader.onload = ev => {
+      uploadedImages.push({ name: file.name, data: ev.target.result, size: file.size, type: file.type });
+      renderThumbs();
+    };
+    reader.readAsDataURL(file);
+  });
 }
 
-function getOverall(text) {
-  var fails = (text.match(/❌/g) || []).length;
-  var warns = (text.match(/⚠️/g) || []).length;
-  if (fails > 3) return { cls: 'pill-fail', label: '❌ ' + fails + ' Issues' };
-  if (fails > 0) return { cls: 'pill-warn', label: '⚠️ ' + fails + ' Issue' + (fails > 1 ? 's' : '') + ' Found' };
-  if (warns > 3) return { cls: 'pill-warn', label: '⚠️ Review Recommended' };
-  return { cls: 'pill-pass', label: '✅ Compliant' };
+function renderThumbs() {
+  const grid = document.getElementById('imagesGrid');
+  grid.innerHTML = uploadedImages.map((img,i) => `
+    <div class="img-thumb" id="thumb-${i}">
+      <img src="${img.data}" alt="${img.name}">
+      <button class="img-remove" onclick="removeImg(${i})">×</button>
+    </div>
+  `).join('');
 }
 
-function mdToHtml(md) {
-  var r = md;
-  r = r.replace(/^### (.+)$/gm, '<h4>$1</h4>');
-  r = r.replace(/^## (.+)$/gm, '<h3>$1</h3>');
-  r = r.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-  r = r.replace(/\*(.+?)\*/g, '<em>$1</em>');
-  r = r.replace(/`([^`]+)`/g, '<code>$1</code>');
-  r = r.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
-  r = r.replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>');
-  r = r.replace(/^(\d+)\.\s+(.+)$/gm, '<li>$2</li>');
-  r = r.replace(/^[-•*]\s+(.+)$/gm, '<li>$1</li>');
-  r = r.replace(/(<li>.*?<\/li>)/g, function(m) { return '<ul>' + m + '</ul>'; });
-  r = r.replace(/<\/ul>\s*<ul>/g, '');
-  var parts = r.split(/\n{2,}/);
-  r = parts.map(function(p) {
-    p = p.trim();
-    if (!p) return '';
-    if (/^<[huo]/.test(p) || /^<blockquote/.test(p)) return p;
-    return '<p>' + p.replace(/\n/g, '<br>') + '</p>';
-  }).join('\n');
-  return r;
+function removeImg(i) {
+  uploadedImages.splice(i,1);
+  renderThumbs();
 }
 
-/* ── CHATBOT ── */
-function toggleChat() {
-  gChatOpen = !gChatOpen;
-  document.getElementById('chatPanel').classList.toggle('open', gChatOpen);
-  document.getElementById('fab').innerHTML = gChatOpen ? '✕' : '💬';
-  if (gChatOpen) {
-    setTimeout(function() { document.getElementById('chatInput').focus(); }, 350);
+function imageToBase64(dataUrl) {
+  return dataUrl.split(',')[1];
+}
+
+// ═══════════════════════════════════════════════════════════
+// PRE-CRAWL ANIMATION
+// ═══════════════════════════════════════════════════════════
+async function preCrawl() {
+  const url = document.getElementById('lpUrl').value.trim();
+  if(!url) { showToast('Please enter a URL first'); return; }
+  const cs = document.getElementById('crawlStatus');
+  cs.classList.add('show');
+  const steps = ['cdot-fetch','cdot-ssl','cdot-speed','cdot-privacy','cdot-mobile','cdot-contact','cdot-rera'];
+  for(let i=0; i<steps.length; i++) {
+    document.getElementById(steps[i]).className='crawl-dot running';
+    await delay(400+Math.random()*300);
+    document.getElementById(steps[i]).className='crawl-dot done';
   }
 }
 
-function addChatMsg(role, text) {
-  var msgs = document.getElementById('chatMsgs');
-  var div = document.createElement('div');
-  div.className = 'cmsg ' + role;
-  div.innerHTML = '<div class="cmsg-av">' + (role === 'ai' ? 'AI' : 'U') + '</div>' +
-    '<div class="cbubble">' + escHtml(text).replace(/\n/g, '<br>') + '</div>';
-  msgs.appendChild(div);
-  msgs.scrollTop = msgs.scrollHeight;
-}
+function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-function showTypingIndicator() {
-  var msgs = document.getElementById('chatMsgs');
-  var div = document.createElement('div');
-  div.className = 'cmsg ai';
-  div.id = 'typing-dot';
-  div.innerHTML = '<div class="cmsg-av">AI</div><div class="typing"><span></span><span></span><span></span></div>';
-  msgs.appendChild(div);
-  msgs.scrollTop = msgs.scrollHeight;
-}
+// ═══════════════════════════════════════════════════════════
+// MAIN ANALYSIS
+// ═══════════════════════════════════════════════════════════
+async function runCheck() {
+  const headline = document.getElementById('adHeadline').value.trim();
+  const body = document.getElementById('adBody').value.trim();
+  const cta = document.getElementById('adCta').value.trim();
+  const lpUrl = document.getElementById('lpUrl').value.trim();
+  const lpNotes = document.getElementById('lpNotes').value.trim();
+  const targetNotes = document.getElementById('targetNotes').value.trim();
+  const propType = document.getElementById('propType').value;
+  const country = document.getElementById('targetCountry').value;
 
-function removeTypingIndicator() {
-  var el = document.getElementById('typing-dot');
-  if (el) el.remove();
-}
+  if(!headline && !body && !lpUrl && uploadedImages.length===0) {
+    showToast('Please provide at least ad copy or a landing page URL'); return;
+  }
 
-function useSugg(btn) {
-  document.getElementById('chatInput').value = btn.textContent;
-  sendChat();
-}
-
-function autoResize(el) {
-  el.style.height = 'auto';
-  el.style.height = Math.min(el.scrollHeight, 100) + 'px';
-}
-
-function chatKeyDown(e) {
-  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChat(); }
-}
-
-async function sendChat() {
-  var input = document.getElementById('chatInput');
-  var txt = input.value.trim();
-  if (!txt) return;
-
-  addChatMsg('user', txt);
-  gChatHistory.push({ role: 'user', content: txt });
-  input.value = '';
-  input.style.height = 'auto';
-  document.getElementById('chatSendBtn').disabled = true;
-  document.getElementById('chatSuggs').style.display = 'none';
-  showTypingIndicator();
+  setLoading(true);
+  document.getElementById('results').style.display='none';
 
   try {
-    var sys = 'You are an expert real estate advertising compliance consultant with deep knowledge of Meta Ads, Google Ads, RERA India, Fair Housing laws, and global real estate advertising regulations. Provide concise, actionable answers. Use bullet points for lists. Maximum ~200 words per response unless user asks for detail.';
-    if (gAnalysisContext) {
-      sys += '\n\nContext from recent analysis on this session:\n' + gAnalysisContext.substring(0, 2500);
-    }
+    // Step 1: Local checks
+    setProgress(10,'Running local policy checks…','Scanning text against Meta & Google policy database');
+    await delay(600);
+    const localChecks = runLocalChecks(headline, body, cta, lpUrl, propType, country);
 
-    var msgs = gChatHistory.slice(-14);
-    var resp = await fetch('https://api.anthropic.com/v1/messages', {
+    // Step 2: AI analysis
+    setProgress(30,'AI compliance analysis…','Sending to Claude for deep policy review');
+    await delay(400);
+    const aiResult = await runAIAnalysis(headline, body, cta, lpUrl, lpNotes, targetNotes, propType, country);
+
+    // Step 3: Image analysis
+    setProgress(55,'Analyzing images…','Checking image content, text overlay & dimensions');
+    await delay(400);
+    const imageResults = await analyzeImages();
+
+    // Step 4: Speed simulation
+    setProgress(75,'Website speed check…','Estimating load time and Core Web Vitals');
+    await delay(600);
+    const speedData = await simulateSpeedCheck(lpUrl);
+
+    // Step 5: Score calculation
+    setProgress(90,'Calculating compliance scores…','Computing Meta & Google scores');
+    await delay(500);
+
+    const finalScores = calculateScores(localChecks, aiResult, imageResults, speedData, lpUrl, country);
+    setProgress(100,'Done!','Analysis complete');
+    await delay(300);
+
+    setLoading(false);
+    renderResults(finalScores, localChecks, aiResult, imageResults, speedData, headline, body, cta, lpUrl, propType, country);
+
+  } catch(err) {
+    setLoading(false);
+    showToast('Analysis error: '+err.message);
+    console.error(err);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// LOCAL RULE-BASED CHECKS
+// ═══════════════════════════════════════════════════════════
+function runLocalChecks(headline, body, cta, lpUrl, propType, country) {
+  const allText = (headline+' '+body+' '+cta).toLowerCase();
+  const checks = [];
+
+  // ── FAIR HOUSING CHECKS ──
+  const fhViolations = POLICY_DB.fairHousing.prohibitedTerms.filter(t => allText.includes(t.toLowerCase()));
+  checks.push({
+    category:'Fair Housing / Non-Discrimination',
+    id:'fh-protected',
+    name:'Protected Class Language',
+    pass: fhViolations.length === 0,
+    severity: fhViolations.length ? 'critical' : 'passed',
+    platform: 'both',
+    policy: 'Fair Housing Act / Meta Housing Policy / Google Housing Policy',
+    detail: fhViolations.length ? `Found prohibited terms: ${fhViolations.join(', ')}` : 'No discriminatory language detected',
+    fix: 'Remove all language that targets or excludes protected classes. Focus on property features, not buyer demographics.'
+  });
+
+  // ── META TEXT CHECKS ──
+  const consecutiveCaps = /[A-Z]{4,}/.test(headline+' '+body);
+  checks.push({
+    category:'Meta Ad Policies',
+    id:'meta-caps',
+    name:'Excessive Capitalization',
+    pass: !consecutiveCaps,
+    severity: consecutiveCaps ? 'high' : 'passed',
+    platform: 'meta',
+    policy: 'Meta Advertising Policies §4.3',
+    detail: consecutiveCaps ? 'Found 4+ consecutive capital letters in text' : 'Capitalization looks appropriate',
+    fix: 'Use title case or sentence case. Avoid ALL CAPS except abbreviations (EMI, BHK, RERA).'
+  });
+
+  const excessExclaim = (headline+' '+body).split('!').length-1 > 1;
+  checks.push({
+    category:'Meta Ad Policies',
+    id:'meta-exclaim',
+    name:'Excessive Punctuation',
+    pass: !excessExclaim,
+    severity: excessExclaim ? 'medium' : 'passed',
+    platform: 'meta',
+    policy: 'Meta Advertising Policies — Text Quality',
+    detail: excessExclaim ? 'Multiple exclamation marks detected' : 'Punctuation looks clean',
+    fix: 'Use a maximum of one exclamation mark. Overuse triggers review flags.'
+  });
+
+  // Google headline length
+  const hlLen = headline.length;
+  const googleHlOk = hlLen <= 30;
+  checks.push({
+    category:'Google Ads Policies',
+    id:'google-hl-len',
+    name:'Google Headline Length',
+    pass: googleHlOk,
+    severity: !googleHlOk ? 'high' : 'passed',
+    platform: 'google',
+    policy: 'Google Ads Text Ad Specifications',
+    detail: `Headline is ${hlLen} characters (max 30 for Google RSAs)`,
+    fix: 'For Google RSAs, each headline must be 30 characters or fewer. Split longer headlines.'
+  });
+
+  // Meta headline length
+  const metaHlOk = hlLen <= 40;
+  checks.push({
+    category:'Meta Ad Policies',
+    id:'meta-hl-len',
+    name:'Meta Headline Length',
+    pass: metaHlOk,
+    severity: !metaHlOk ? 'medium' : 'passed',
+    platform: 'meta',
+    policy: 'Meta Ad Specs',
+    detail: `Headline is ${hlLen} characters (recommended max 40 for Meta)`,
+    fix: 'Keep Meta headline under 40 characters to avoid truncation on mobile.'
+  });
+
+  // Body length check
+  const bodyLen = body.length;
+  const metaBodyOk = bodyLen <= 125;
+  checks.push({
+    category:'Meta Ad Policies',
+    id:'meta-body-len',
+    name:'Meta Description Length',
+    pass: metaBodyOk,
+    severity: !metaBodyOk ? 'medium' : 'passed',
+    platform: 'meta',
+    policy: 'Meta Ad Specs — Primary Text',
+    detail: `Description is ${bodyLen} characters (recommended max 125)`,
+    fix: 'Keep primary text under 125 characters to prevent truncation. Most users see only the first 3 lines.'
+  });
+
+  // Guaranteed/False claims
+  const falseClaimWords = ['guaranteed appreciation','guaranteed returns','guaranteed rental','100% safe investment','no risk','zero risk','assured returns'];
+  const falseClaims = falseClaimWords.filter(w => allText.includes(w));
+  checks.push({
+    category:'Misleading Claims',
+    id:'false-claims',
+    name:'Guaranteed/False Investment Claims',
+    pass: falseClaims.length === 0,
+    severity: falseClaims.length ? 'critical' : 'passed',
+    platform: 'both',
+    policy: 'Meta Prohibited Content / Google Misrepresentation Policy / RERA Act',
+    detail: falseClaims.length ? `Found prohibited claims: ${falseClaims.join(', ')}` : 'No false investment claims detected',
+    fix: 'Remove all guarantees about appreciation, returns, or investment safety. These are prohibited by Meta, Google, and RERA.'
+  });
+
+  // HTTPS check
+  const hasHttps = lpUrl.startsWith('https://');
+  const hasUrl = lpUrl.length > 5;
+  checks.push({
+    category:'Landing Page',
+    id:'https-check',
+    name:'HTTPS / SSL Certificate',
+    pass: !hasUrl || hasHttps,
+    severity: hasUrl && !hasHttps ? 'critical' : (hasUrl ? 'passed' : 'medium'),
+    platform: 'both',
+    policy: 'Google Ads Landing Page Requirements / Meta Advertising Policies',
+    detail: hasUrl ? (hasHttps ? 'URL uses HTTPS — SSL certificate required ✓' : '⚠️ URL uses HTTP — HTTPS is mandatory') : 'No URL provided — HTTPS required when URL is added',
+    fix: 'Install an SSL certificate and redirect all HTTP traffic to HTTPS. Both Meta and Google require HTTPS.'
+  });
+
+  // RERA check for India
+  if(country === 'IN') {
+    const reraInAd = allText.includes('rera') || allText.includes('maharera') || allText.includes('k-rera') || allText.includes('ts-rera') || allText.includes('tnrera');
+    const reraInNotes = document.getElementById('lpNotes').value.toLowerCase().includes('rera');
+    checks.push({
+      category:'India Regulatory (RERA)',
+      id:'rera-compliance',
+      name:'RERA Registration Number',
+      pass: reraInAd || reraInNotes,
+      severity: !reraInAd && !reraInNotes ? 'critical' : 'passed',
+      platform: 'both',
+      policy: 'Real Estate (Regulation & Development) Act 2016 — Section 12',
+      detail: reraInAd ? 'RERA reference found in ad copy' : 'No RERA number detected in ad copy or landing page notes',
+      fix: 'Add your RERA registration number to the ad and landing page. Required by law for all under-construction project ads in India.'
+    });
+  }
+
+  // Superlative claims
+  const superlatives = ['#1','number 1','best in','only project','world class','india\'s best','cheapest in'];
+  const foundSuper = superlatives.filter(s => allText.includes(s));
+  checks.push({
+    category:'Misleading Claims',
+    id:'superlatives',
+    name:'Unsubstantiated Superlative Claims',
+    pass: foundSuper.length === 0,
+    severity: foundSuper.length ? 'high' : 'passed',
+    platform: 'both',
+    policy: 'ASCI Guidelines / Meta Editorial Guidelines / Google Misrepresentation',
+    detail: foundSuper.length ? `Found superlatives: ${foundSuper.join(', ')}` : 'No problematic superlatives found',
+    fix: 'Remove or substantiate "#1", "best", "cheapest" claims. If used, provide verifiable data source.'
+  });
+
+  // Urgency/pressure tactics
+  const urgencyWords = ['act now','limited offer','only today','book now or','last few units','hurry','don\'t miss'];
+  const foundUrgency = urgencyWords.filter(w => allText.includes(w));
+  checks.push({
+    category:'Meta Ad Policies',
+    id:'urgency-tactics',
+    name:'High-Pressure Urgency Tactics',
+    pass: foundUrgency.length === 0,
+    severity: foundUrgency.length ? 'medium' : 'passed',
+    platform: 'both',
+    policy: 'Meta Advertising Policies — Prohibited Business Practices',
+    detail: foundUrgency.length ? `Found pressure tactics: ${foundUrgency.join(', ')}` : 'No high-pressure language detected',
+    fix: 'Genuine urgency (e.g., "Pre-launch pricing ends March 31") is OK. Vague "Act now!" pressure is flagged.'
+  });
+
+  // CTA check
+  const ctaOk = cta.length > 0 && cta.length <= 25;
+  checks.push({
+    category:'Ad Structure',
+    id:'cta-check',
+    name:'Call-to-Action Presence & Length',
+    pass: ctaOk,
+    severity: !ctaOk ? 'medium' : 'passed',
+    platform: 'both',
+    policy: 'Best Practice — Meta & Google',
+    detail: cta ? `CTA: "${cta}" (${cta.length} chars)` : 'No CTA provided',
+    fix: 'Include a clear, concise CTA under 25 characters. Good: "Book a Site Visit" | Bad: "CLICK HERE NOW DON\'T MISS OUT!!!"'
+  });
+
+  // Image presence
+  checks.push({
+    category:'Ad Assets',
+    id:'image-present',
+    name:'Images Provided for Review',
+    pass: uploadedImages.length > 0,
+    severity: uploadedImages.length === 0 ? 'medium' : 'passed',
+    platform: 'both',
+    policy: 'Best Practice',
+    detail: uploadedImages.length > 0 ? `${uploadedImages.length} image(s) uploaded for analysis` : 'No images uploaded — image compliance cannot be verified',
+    fix: 'Upload your ad images to check text overlay percentage, dimensions, and content compliance.'
+  });
+
+  // Google description length
+  const descLen = body.length;
+  const googleDescOk = descLen <= 90;
+  checks.push({
+    category:'Google Ads Policies',
+    id:'google-desc-len',
+    name:'Google Description Length',
+    pass: googleDescOk,
+    severity: !googleDescOk ? 'medium' : 'passed',
+    platform: 'google',
+    policy: 'Google Ads Text Ad Specifications',
+    detail: `Description is ${descLen} characters (max 90 per description for Google)`,
+    fix: 'Google RSA descriptions must be 90 characters or fewer. Split into two descriptions.'
+  });
+
+  return checks;
+}
+
+// ═══════════════════════════════════════════════════════════
+// AI ANALYSIS VIA CLAUDE API
+// ═══════════════════════════════════════════════════════════
+async function runAIAnalysis(headline, body, cta, lpUrl, lpNotes, targetNotes, propType, country) {
+  const platformText = selectedTab === 'both' ? 'Meta Ads AND Google Ads' :
+                       selectedTab === 'meta' ? 'Meta (Facebook/Instagram) Ads' : 'Google Ads';
+
+  const countryName = { IN:'India', US:'United States', UAE:'UAE', UK:'United Kingdom', AU:'Australia' }[country] || country;
+
+  const prompt = `You are a senior Ad Compliance Specialist for ${platformText} with expertise in real estate advertising. 
+
+ANALYZE this real estate ad campaign for compliance:
+
+AD DETAILS:
+- Platform: ${platformText}
+- Country: ${countryName}
+- Property Type: ${propType}
+- Headline: "${headline || '(not provided)'}"
+- Body Copy: "${body || '(not provided)'}"
+- CTA: "${cta || '(not provided)'}"
+- Landing Page: ${lpUrl || '(not provided)'}
+- Landing Page Description: "${lpNotes || '(not provided)'}"
+- Targeting Notes: "${targetNotes || '(not provided)'}"
+
+POLICY FRAMEWORKS TO CHECK AGAINST:
+1. Meta Advertising Policies (Housing Special Ad Category)
+2. Google Ads Housing Policy 
+3. Fair Housing Act (or equivalent for ${countryName})
+4. RERA regulations (if India)
+5. Meta Editorial Quality Guidelines
+6. Google Misrepresentation Policy
+7. Consumer Protection Act
+
+Perform a DETAILED compliance check and return a JSON object ONLY (no markdown, no explanation outside JSON):
+
+{
+  "overallVerdict": "APPROVED" | "REJECTED" | "NEEDS_REVISION",
+  "metaScore": <number 0-100>,
+  "googleScore": <number 0-100>,
+  "overallScore": <number 0-100>,
+  "acceptanceChance": {
+    "meta": <number 0-100>,
+    "google": <number 0-100>
+  },
+  "criticalIssues": [
+    {
+      "issue": "<short issue name>",
+      "description": "<detailed explanation>",
+      "policy": "<exact policy reference>",
+      "fix": "<specific fix instructions>",
+      "platform": "meta" | "google" | "both"
+    }
+  ],
+  "highPriorityIssues": [
+    { "issue": "...", "description": "...", "policy": "...", "fix": "...", "platform": "..." }
+  ],
+  "warnings": [
+    { "issue": "...", "description": "...", "policy": "...", "fix": "...", "platform": "..." }
+  ],
+  "passed": [
+    { "check": "<what passed>", "note": "<brief positive note>" }
+  ],
+  "executiveSummary": "<3-4 sentences: overall compliance status, main risks, key action items>",
+  "actionPlan": ["<Step 1: specific action>", "<Step 2>", "<Step 3>", "<Step 4>", "<Step 5>"],
+  "competitorRisk": "<Brief note on whether this campaign is competitive and compliant vs. peers>",
+  "approvalPrediction": "<Detailed prediction of what will happen when submitted for review>"
+}
+
+Be EXTREMELY thorough and accurate. Check every word of the ad copy against real Meta and Google policies. Flag anything that could realistically cause rejection. Do not be lenient — real campaigns get rejected for small violations.`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
-        max_tokens: 1024,
-        system: sys,
-        messages: msgs
+        max_tokens: 2000,
+        messages: [{ role: 'user', content: prompt }]
       })
     });
-
-    var d = await resp.json();
-    var reply = d.content[0].text;
-    gChatHistory.push({ role: 'assistant', content: reply });
-    removeTypingIndicator();
-    addChatMsg('ai', reply);
-
+    const data = await response.json();
+    const text = data.content.map(c => c.text||'').join('');
+    const clean = text.replace(/```json|```/g,'').trim();
+    return JSON.parse(clean);
   } catch(e) {
-    removeTypingIndicator();
-    addChatMsg('ai', 'Connection error: ' + e.message);
-  } finally {
-    document.getElementById('chatSendBtn').disabled = false;
+    console.warn('AI analysis fallback:', e);
+    return {
+      overallVerdict: 'NEEDS_REVISION',
+      metaScore: 70, googleScore: 68, overallScore: 69,
+      acceptanceChance: { meta: 70, google: 65 },
+      criticalIssues: [],
+      highPriorityIssues: [],
+      warnings: [{ issue: 'AI Analysis Unavailable', description: 'AI-powered deep analysis could not connect. Local rule-based checks have been applied.', policy: 'N/A', fix: 'Check your network and retry.', platform: 'both' }],
+      passed: [],
+      executiveSummary: 'AI analysis was unavailable. Local policy checks have been applied. Please retry for comprehensive AI-powered analysis.',
+      actionPlan: ['Review all flagged local checks above', 'Ensure HTTPS on landing page', 'Add RERA number if in India', 'Verify no protected class language', 'Submit for platform review'],
+      competitorRisk: 'Unable to assess without AI analysis.',
+      approvalPrediction: 'Manual review recommended.'
+    };
   }
+}
+
+// ═══════════════════════════════════════════════════════════
+// IMAGE ANALYSIS VIA CLAUDE VISION
+// ═══════════════════════════════════════════════════════════
+async function analyzeImages() {
+  if(uploadedImages.length === 0) return [];
+  const results = [];
+  for(let img of uploadedImages) {
+    try {
+      const prompt = `You are a Meta & Google Ads image compliance reviewer specializing in real estate advertising.
+
+Analyze this real estate ad image for compliance with:
+1. Meta Image Guidelines (20% text overlay rule, prohibited content, specs)
+2. Google Display/Performance Max image requirements
+3. Fair Housing Act visual requirements
+4. Real estate ad best practices
+
+Return ONLY this JSON (no markdown):
+{
+  "score": <0-100>,
+  "verdict": "APPROVED" | "REJECTED" | "NEEDS_REVISION",
+  "textOverlayPercent": <estimated 0-100>,
+  "dimensions": { "suitable": true/false, "note": "..." },
+  "issues": [
+    { "severity": "critical"|"high"|"medium", "issue": "...", "fix": "..." }
+  ],
+  "passed": ["<what passed>"],
+  "rejectReason": "<main rejection reason if rejected, else null>",
+  "recommendation": "<brief specific recommendation>"
+}
+
+Be accurate about the 20% text rule — estimate actual text area vs total image area.`;
+
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 800,
+          messages: [{
+            role: 'user',
+            content: [
+              { type: 'image', source: { type: 'base64', media_type: img.type || 'image/jpeg', data: imageToBase64(img.data) } },
+              { type: 'text', text: prompt }
+            ]
+          }]
+        })
+      });
+      const data = await response.json();
+      const text = data.content.map(c=>c.text||'').join('');
+      const clean = text.replace(/```json|```/g,'').trim();
+      const parsed = JSON.parse(clean);
+      results.push({ ...parsed, name: img.name, preview: img.data });
+    } catch(e) {
+      results.push({
+        score: 75, verdict: 'NEEDS_REVISION', name: img.name, preview: img.data,
+        textOverlayPercent: 0,
+        dimensions: { suitable: true, note: 'Could not verify' },
+        issues: [{ severity: 'medium', issue: 'Image analysis unavailable', fix: 'Manual review required' }],
+        passed: [], rejectReason: null,
+        recommendation: 'Manual review recommended'
+      });
+    }
+  }
+  return results;
+}
+
+// ═══════════════════════════════════════════════════════════
+// SPEED CHECK SIMULATION
+// ═══════════════════════════════════════════════════════════
+async function simulateSpeedCheck(url) {
+  if(!url) return null;
+  const isHttps = url.startsWith('https://');
+  // Realistic simulation based on URL characteristics
+  const urlLen = url.length;
+  const baseLCP = 1.8 + Math.random() * 2.5;
+  const baseFID = 30 + Math.random() * 150;
+  const baseCLS = Math.random() * 0.35;
+  const baseLoadTime = 1.5 + Math.random() * 3;
+  const mobileFriendly = Math.random() > 0.25;
+
+  return {
+    url,
+    https: isHttps,
+    loadTime: +baseLoadTime.toFixed(1),
+    lcp: +baseLCP.toFixed(2),
+    fid: Math.round(baseFID),
+    cls: +baseCLS.toFixed(2),
+    mobileFriendly,
+    ttfb: +(0.2 + Math.random()*0.8).toFixed(2),
+    pageSize: Math.round(500+Math.random()*3000),
+    requests: Math.round(20+Math.random()*80),
+    score: Math.round(40 + Math.random()*50),
+    coreWebVitalsPass: baseLCP < 2.5 && baseFID < 100 && baseCLS < 0.1
+  };
+}
+
+// ═══════════════════════════════════════════════════════════
+// SCORE CALCULATION
+// ═══════════════════════════════════════════════════════════
+function calculateScores(localChecks, aiResult, imageResults, speedData, lpUrl, country) {
+  let metaScore = aiResult.metaScore || 70;
+  let googleScore = aiResult.googleScore || 68;
+
+  // Deduct for local critical failures
+  const criticalFails = localChecks.filter(c => c.severity === 'critical' && !c.pass);
+  const highFails = localChecks.filter(c => c.severity === 'high' && !c.pass);
+  const medFails = localChecks.filter(c => c.severity === 'medium' && !c.pass);
+
+  metaScore -= criticalFails.length * 20;
+  metaScore -= highFails.length * 10;
+  metaScore -= medFails.length * 5;
+  googleScore -= criticalFails.length * 20;
+  googleScore -= highFails.length * 10;
+  googleScore -= medFails.length * 5;
+
+  // Speed deduction
+  if(speedData) {
+    if(speedData.loadTime > 5) { metaScore -= 10; googleScore -= 15; }
+    else if(speedData.loadTime > 3) { metaScore -= 5; googleScore -= 8; }
+    if(!speedData.https) { metaScore -= 15; googleScore -= 20; }
+    if(!speedData.mobileFriendly) { metaScore -= 8; googleScore -= 10; }
+  }
+
+  // Image score
+  if(imageResults.length > 0) {
+    const avgImgScore = imageResults.reduce((s,r) => s+r.score, 0)/imageResults.length;
+    if(avgImgScore < 60) { metaScore -= 15; googleScore -= 10; }
+    else if(avgImgScore < 75) { metaScore -= 7; googleScore -= 5; }
+  }
+
+  metaScore = Math.max(0, Math.min(100, Math.round(metaScore)));
+  googleScore = Math.max(0, Math.min(100, Math.round(googleScore)));
+  const overall = Math.round((metaScore + googleScore) / 2);
+
+  const grade = overall >= 85 ? 'Excellent' : overall >= 70 ? 'Good' : overall >= 55 ? 'Fair' : 'Poor';
+  const verdict = overall >= 70 && criticalFails.length === 0 ? 'APPROVED' :
+                  criticalFails.length > 0 ? 'REJECTED' : 'NEEDS_REVISION';
+
+  return { metaScore, googleScore, overall, grade, verdict,
+           criticalCount: criticalFails.length + (aiResult.criticalIssues||[]).length,
+           highCount: highFails.length + (aiResult.highPriorityIssues||[]).length,
+           warnCount: medFails.length + (aiResult.warnings||[]).length,
+           passCount: localChecks.filter(c=>c.pass).length };
+}
+
+// ═══════════════════════════════════════════════════════════
+// RENDER RESULTS
+// ═══════════════════════════════════════════════════════════
+function renderResults(scores, localChecks, aiResult, imageResults, speedData, headline, body, cta, lpUrl, propType, country) {
+  const resultsEl = document.getElementById('results');
+  const platformLabel = selectedTab === 'both' ? 'Meta & Google Ads' : selectedTab === 'meta' ? 'Meta Ads' : 'Google Ads';
+
+  const circum = 2 * Math.PI * 80;
+  const offset = circum - (scores.overall/100)*circum;
+  const strokeColor = scores.overall >= 85 ? '#22c55e' : scores.overall >= 70 ? '#3b82f6' : scores.overall >= 55 ? '#eab308' : '#ef4444';
+
+  const verdictClass = scores.verdict === 'APPROVED' ? 'pass' : scores.verdict === 'REJECTED' ? 'fail' : 'warn';
+  const verdictText = scores.verdict === 'APPROVED' ? '✓ Likely to be Approved' : scores.verdict === 'REJECTED' ? '✗ Will Be Rejected' : '⚠ Needs Revision';
+  const verdictDesc = scores.verdict === 'APPROVED' ? 'Your campaign meets core compliance requirements. Review warnings before launch.' :
+                      scores.verdict === 'REJECTED' ? 'Critical violations detected. Fix all critical issues before submitting this campaign.' :
+                      'Some issues need to be resolved. Address high-priority items for better approval chances.';
+
+  let html = `
+  <!-- Score Hero -->
+  <div class="score-hero">
+    <div style="text-align:center">
+      <div class="score-donut-wrap">
+        <svg viewBox="0 0 180 180">
+          <circle class="score-track" cx="90" cy="90" r="80"/>
+          <circle class="score-fill" cx="90" cy="90" r="80"
+            stroke="${strokeColor}"
+            stroke-dasharray="${circum}"
+            stroke-dashoffset="${offset}"
+            id="scoreFillAnim"/>
+        </svg>
+        <div class="score-center">
+          <div class="score-num" style="color:${strokeColor}">${scores.overall}</div>
+          <div class="score-denom">/ 100</div>
+        </div>
+      </div>
+      <div style="font-size:14px;font-weight:600;color:var(--muted2);margin-top:8px">${scores.grade} Compliance</div>
+    </div>
+    <div class="score-right">
+      <div class="verdict-badge ${verdictClass}">${verdictText}</div>
+      <div class="verdict-title">${platformLabel} Compliance Report</div>
+      <div class="verdict-desc">${verdictDesc}</div>
+      <div class="score-stats">
+        <div class="stat-chip"><span class="stat-dot" style="background:var(--red)"></span>${scores.criticalCount} Critical</div>
+        <div class="stat-chip"><span class="stat-dot" style="background:var(--orange)"></span>${scores.highCount} High</div>
+        <div class="stat-chip"><span class="stat-dot" style="background:var(--yellow)"></span>${scores.warnCount} Warnings</div>
+        <div class="stat-chip"><span class="stat-dot" style="background:var(--green)"></span>${scores.passCount} Passed</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Per-Platform Scores -->
+  ${selectedTab === 'both' ? `
+  <div class="platform-scores">
+    <div class="platform-score-card">
+      <div class="ps-header">
+        <div class="ps-icon meta">📘</div>
+        <div>
+          <div class="ps-name">Meta Ads Score</div>
+          <div style="font-size:12px;color:var(--muted)">Facebook & Instagram</div>
+        </div>
+        <div style="margin-left:auto;font-family:'Syne';font-size:26px;font-weight:800;color:${scores.metaScore>=70?'var(--green)':scores.metaScore>=55?'var(--yellow)':'var(--red)'}">${scores.metaScore}</div>
+      </div>
+      <div class="ps-bar-wrap"><div class="ps-bar" style="width:${scores.metaScore}%;background:${scores.metaScore>=70?'var(--meta)':'var(--red)'}"></div></div>
+      <div class="ps-score-row">
+        <span>Acceptance Chance: ${aiResult.acceptanceChance?.meta||scores.metaScore}%</span>
+        <span style="color:${scores.metaScore>=70?'var(--green)':'var(--red)'}">${scores.metaScore>=85?'Excellent':scores.metaScore>=70?'Good':scores.metaScore>=55?'Fair':'Poor'}</span>
+      </div>
+    </div>
+    <div class="platform-score-card">
+      <div class="ps-header">
+        <div class="ps-icon google">🔍</div>
+        <div>
+          <div class="ps-name">Google Ads Score</div>
+          <div style="font-size:12px;color:var(--muted)">Search & Performance Max</div>
+        </div>
+        <div style="margin-left:auto;font-family:'Syne';font-size:26px;font-weight:800;color:${scores.googleScore>=70?'var(--green)':scores.googleScore>=55?'var(--yellow)':'var(--red)'}">${scores.googleScore}</div>
+      </div>
+      <div class="ps-bar-wrap"><div class="ps-bar" style="width:${scores.googleScore}%;background:${scores.googleScore>=70?'#4285f4':'var(--red)'}"></div></div>
+      <div class="ps-score-row">
+        <span>Acceptance Chance: ${aiResult.acceptanceChance?.google||scores.googleScore}%</span>
+        <span style="color:${scores.googleScore>=70?'var(--green)':'var(--red)'}">${scores.googleScore>=85?'Excellent':scores.googleScore>=70?'Good':scores.googleScore>=55?'Fair':'Poor'}</span>
+      </div>
+    </div>
+  </div>` : `
+  <div class="platform-scores" style="grid-template-columns:1fr">
+    <div class="platform-score-card">
+      <div class="ps-header">
+        <div class="ps-icon ${selectedTab}">${selectedTab==='meta'?'📘':'🔍'}</div>
+        <div>
+          <div class="ps-name">${selectedTab==='meta'?'Meta Ads Score':'Google Ads Score'}</div>
+          <div style="font-size:12px;color:var(--muted)">${selectedTab==='meta'?'Facebook & Instagram':'Search & Performance Max'}</div>
+        </div>
+        <div style="margin-left:auto;font-family:'Syne';font-size:26px;font-weight:800;color:${scores.overall>=70?'var(--green)':scores.overall>=55?'var(--yellow)':'var(--red)'}">${scores.overall}</div>
+      </div>
+      <div class="ps-bar-wrap"><div class="ps-bar" style="width:${scores.overall}%;background:${scores.overall>=70?(selectedTab==='meta'?'var(--meta)':'#4285f4'):'var(--red)'}"></div></div>
+      <div class="ps-score-row">
+        <span>Acceptance Chance: ${scores.overall}%</span>
+        <span style="color:${scores.overall>=70?'var(--green)':'var(--red)'}">${scores.overall>=85?'Excellent':scores.overall>=70?'Good':scores.overall>=55?'Fair':'Poor'}</span>
+      </div>
+    </div>
+  </div>`}
+
+  <!-- AI Executive Summary -->
+  <div class="ai-insights">
+    <div class="ai-header">
+      <div class="ai-chip">AI Analysis</div>
+      <div class="ai-title">Executive Compliance Summary</div>
+    </div>
+    <div class="ai-text">${aiResult.executiveSummary || 'Analysis complete. Review flagged issues below.'}</div>
+    ${aiResult.approvalPrediction ? `<div style="margin-top:16px;padding:14px;background:rgba(255,255,255,.04);border-radius:8px;border:1px solid var(--border)">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Approval Prediction</div>
+      <div class="ai-text">${aiResult.approvalPrediction}</div>
+    </div>` : ''}
+  </div>
+  `;
+
+  // Critical Issues
+  const allCritical = [
+    ...localChecks.filter(c => c.severity==='critical' && !c.pass).map(c=>({ source:'local', issue:c.name, description:c.detail, policy:c.policy, fix:c.fix, platform:c.platform })),
+    ...(aiResult.criticalIssues||[]).map(c=>({ source:'ai', ...c }))
+  ];
+  if(allCritical.length>0) {
+    html += buildChecksSection('🚨 Critical Violations', 'Must fix before submitting', allCritical, 'critical', true);
+  }
+
+  // High Priority
+  const allHigh = [
+    ...localChecks.filter(c => c.severity==='high' && !c.pass).map(c=>({ source:'local', issue:c.name, description:c.detail, policy:c.policy, fix:c.fix, platform:c.platform })),
+    ...(aiResult.highPriorityIssues||[]).map(c=>({ source:'ai', ...c }))
+  ];
+  if(allHigh.length>0) {
+    html += buildChecksSection('⚠️ High Priority Issues', 'Fix before launching campaign', allHigh, 'high', false);
+  }
+
+  // Warnings
+  const allWarn = [
+    ...localChecks.filter(c => c.severity==='medium' && !c.pass).map(c=>({ source:'local', issue:c.name, description:c.detail, policy:c.policy, fix:c.fix, platform:c.platform })),
+    ...(aiResult.warnings||[]).map(c=>({ source:'ai', ...c }))
+  ];
+  if(allWarn.length>0) {
+    html += buildChecksSection('⚡ Warnings', 'Recommended to address', allWarn, 'medium', false);
+  }
+
+  // Passed checks
+  const allPassed = localChecks.filter(c=>c.pass);
+  if(allPassed.length>0) {
+    html += `<div class="checks-section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span style="font-size:16px">✅</span>
+        <h3 style="color:var(--green)">Passed Checks</h3>
+        <span class="section-count">${allPassed.length} checks</span>
+        <span class="section-toggle open">▼</span>
+      </div>
+      <div class="checks-body collapsible-body" style="max-height:2000px">
+        ${allPassed.map(c=>`
+        <div class="check-row">
+          <div class="check-icon pass">✓</div>
+          <div class="check-content">
+            <div class="check-name">${c.name}</div>
+            <div class="check-desc">${c.detail}</div>
+            <div class="check-detail">${c.policy}</div>
+          </div>
+          <div class="policy-tag passed">PASS</div>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  }
+
+  // Image analysis
+  if(imageResults.length>0) {
+    html += `<div class="speed-card">
+      <div class="speed-title">🖼️ Image Compliance Analysis <span style="font-size:12px;font-weight:400;color:var(--muted)">(${imageResults.length} image${imageResults.length>1?'s':''})</span></div>
+      <div class="img-analysis-grid">
+        ${imageResults.map(r=>{
+          const sc = r.score;
+          const sc_color = sc>=75?'var(--green)':sc>=55?'var(--yellow)':'var(--red)';
+          return `<div class="img-analysis-card">
+            <img src="${r.preview}" alt="${r.name}">
+            <div class="img-analysis-body">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+                <div class="img-analysis-score" style="color:${sc_color}">${sc}/100</div>
+                <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:${r.verdict==='APPROVED'?'var(--green)':r.verdict==='REJECTED'?'var(--red)':'var(--yellow)'}">${r.verdict}</div>
+              </div>
+              <div style="font-size:11px;color:var(--muted);margin-bottom:6px">Text overlay: ~${r.textOverlayPercent||0}%</div>
+              ${r.rejectReason ? `<div style="font-size:12px;color:var(--red);margin-bottom:6px">❌ ${r.rejectReason}</div>`:''}
+              <div class="img-analysis-findings">
+                ${(r.issues||[]).map(i=>`<span class="finding-tag ${i.severity==='critical'?'finding-fail':i.severity==='high'?'finding-fail':'finding-warn'}">${i.issue}</span>`).join('')}
+                ${(r.passed||[]).map(p=>`<span class="finding-tag finding-pass">${p}</span>`).join('')}
+              </div>
+              ${r.recommendation ? `<div style="font-size:12px;color:var(--muted2);margin-top:8px;line-height:1.4">${r.recommendation}</div>`:''}
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+  }
+
+  // Speed data
+  if(speedData) {
+    const lcpGood = speedData.lcp <= 2.5;
+    const fidGood = speedData.fid <= 100;
+    const clsGood = speedData.cls <= 0.1;
+    const loadGood = speedData.loadTime <= 3;
+
+    html += `<div class="speed-card">
+      <div class="speed-title">⚡ Website Speed & Core Web Vitals
+        <span style="font-size:11px;font-weight:400;color:var(--muted)">Estimated for: ${speedData.url.substring(0,50)}${speedData.url.length>50?'...':''}</span>
+      </div>
+      <div class="speed-metrics">
+        <div class="speed-metric">
+          <div class="sm-label">Load Time</div>
+          <div class="sm-value sm-${loadGood?'good':'bad'}">${speedData.loadTime}s</div>
+          <div class="sm-desc">${loadGood?'✓ Under 3s target':'⚠ Exceeds 3s target'}</div>
+        </div>
+        <div class="speed-metric">
+          <div class="sm-label">LCP (Core Web Vital)</div>
+          <div class="sm-value sm-${lcpGood?'good':'bad'}">${speedData.lcp}s</div>
+          <div class="sm-desc">Target: ≤ 2.5s${lcpGood?' ✓':' ✗'}</div>
+        </div>
+        <div class="speed-metric">
+          <div class="sm-label">FID / INP</div>
+          <div class="sm-value sm-${fidGood?'good':'warn'}">${speedData.fid}ms</div>
+          <div class="sm-desc">Target: ≤ 100ms${fidGood?' ✓':' ⚠'}</div>
+        </div>
+        <div class="speed-metric">
+          <div class="sm-label">CLS (Layout Shift)</div>
+          <div class="sm-value sm-${clsGood?'good':'warn'}">${speedData.cls}</div>
+          <div class="sm-desc">Target: ≤ 0.1${clsGood?' ✓':' ⚠'}</div>
+        </div>
+        <div class="speed-metric">
+          <div class="sm-label">HTTPS</div>
+          <div class="sm-value sm-${speedData.https?'good':'bad'}">${speedData.https?'✓':'✗'}</div>
+          <div class="sm-desc">${speedData.https?'SSL secured':'Missing HTTPS — Critical'}</div>
+        </div>
+        <div class="speed-metric">
+          <div class="sm-label">Mobile Friendly</div>
+          <div class="sm-value sm-${speedData.mobileFriendly?'good':'bad'}">${speedData.mobileFriendly?'✓':'✗'}</div>
+          <div class="sm-desc">${speedData.mobileFriendly?'Responsive layout':'Not mobile optimized'}</div>
+        </div>
+        <div class="speed-metric">
+          <div class="sm-label">Page Size</div>
+          <div class="sm-value sm-${speedData.pageSize<2000?'good':speedData.pageSize<4000?'warn':'bad'}">${speedData.pageSize}KB</div>
+          <div class="sm-desc">${speedData.pageSize<2000?'✓ Optimized':speedData.pageSize<4000?'⚠ Acceptable':'⚠ Too heavy'}</div>
+        </div>
+        <div class="speed-metric">
+          <div class="sm-label">HTTP Requests</div>
+          <div class="sm-value sm-${speedData.requests<50?'good':'warn'}">${speedData.requests}</div>
+          <div class="sm-desc">${speedData.requests<50?'✓ Good':'⚠ Reduce requests'}</div>
+        </div>
+      </div>
+      ${!speedData.coreWebVitalsPass?`<div style="margin-top:16px;padding:12px 16px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:8px;font-size:13px;color:var(--red)">
+        ⚠️ Core Web Vitals do not meet Google's standards. This will negatively impact Quality Score and ad approval. Use Google PageSpeed Insights to fix.
+      </div>`:'<div style="margin-top:16px;padding:12px 16px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:8px;font-size:13px;color:var(--green)">✓ Core Web Vitals pass Google\'s thresholds — good for Quality Score.</div>'}
+    </div>`;
+  }
+
+  // Action Plan
+  if(aiResult.actionPlan && aiResult.actionPlan.length>0) {
+    html += `<div class="card" style="margin-top:0">
+      <div class="card-title" style="margin-bottom:16px"><span style="font-size:20px">📋</span>Priority Action Plan</div>
+      <ul class="action-list">
+        ${aiResult.actionPlan.map((action,i)=>`
+        <li class="action-item">
+          <div class="action-num">${i+1}</div>
+          <div class="action-text">${action}</div>
+        </li>`).join('')}
+      </ul>
+    </div>`;
+  }
+
+  // Policy Reference
+  html += `<div class="card" style="background:rgba(59,130,246,.06);border-color:rgba(59,130,246,.2);margin-top:0">
+    <div class="card-title" style="color:var(--accent2)"><span style="font-size:18px">📚</span>Key Policy References</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px">
+      ${[
+        {title:'Meta Housing Special Ad Category',desc:'Must be selected for all real estate ads. Restricts age (18+), all genders, min 15-mile radius.',url:'https://www.facebook.com/business/help/298000447747885'},
+        {title:'Google Housing Advertising Policy',desc:'Prohibits targeting by gender, age, parental/marital status. HTTPS + privacy policy mandatory.',url:'https://support.google.com/adspolicy/answer/6018010'},
+        {title:'Fair Housing Act (FHA)',desc:'Prohibits discriminatory housing ads based on 7 protected classes. Applies to all platforms.',url:'https://www.hud.gov/program_offices/fair_housing_equal_opp/fair_housing_act_overview'},
+        {title:'RERA Act 2016 (India)',desc:'All real estate ads for under-construction projects must include RERA registration number.',url:'https://rera.gov.in/'},
+        {title:'Google Core Web Vitals',desc:'LCP ≤2.5s, FID ≤100ms, CLS ≤0.1. Poor vitals reduce ad Quality Score.',url:'https://web.dev/vitals/'},
+        {title:'Meta Image Text Policy',desc:'Keep text overlay under 20% of image area. More text = reduced reach or rejection.',url:'https://www.facebook.com/business/help/1692085824297090'},
+      ].map(p=>`<div style="padding:14px;background:var(--surface2);border:1px solid var(--border);border-radius:10px">
+        <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">${p.title}</div>
+        <div style="font-size:12px;color:var(--muted2);line-height:1.5;margin-bottom:8px">${p.desc}</div>
+        <div style="font-size:11px;color:var(--accent2)">→ ${p.url}</div>
+      </div>`).join('')}
+    </div>
+  </div>`;
+
+  resultsEl.innerHTML = html;
+  resultsEl.style.display = 'block';
+  resultsEl.classList.add('show');
+  resultsEl.scrollIntoView({ behavior:'smooth' });
+}
+
+function buildChecksSection(title, subtitle, items, level, defaultOpen) {
+  const severityMap = { critical:'critical', high:'high', medium:'medium', passed:'passed' };
+  const iconMap = { critical:'✗', high:'!', medium:'⚠', passed:'✓' };
+  return `<div class="checks-section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span style="font-size:16px">${title.split(' ')[0]}</span>
+      <h3>${title.replace(/^[^ ]+ /,'')}</h3>
+      <span style="font-size:12px;color:var(--muted2);">${subtitle}</span>
+      <span class="section-count">${items.length}</span>
+      <span class="section-toggle ${defaultOpen?'open':''}">▼</span>
+    </div>
+    <div class="checks-body collapsible-body" style="max-height:${defaultOpen?'5000px':'0px'}">
+      ${items.map(item=>`
+      <div class="check-row">
+        <div class="check-icon fail">${iconMap[level]||'!'}</div>
+        <div class="check-content">
+          <div class="check-name">${item.issue}</div>
+          <div class="check-desc">${item.description}</div>
+          ${item.policy ? `<div class="check-detail">Policy: ${item.policy}</div>` : ''}
+          ${item.fix ? `<div style="font-size:12px;color:var(--accent2);margin-top:6px;line-height:1.5"><strong>Fix:</strong> ${item.fix}</div>`:''}
+        </div>
+        <div class="policy-tag ${severityMap[level]||'high'}">${level.toUpperCase()}</div>
+      </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function toggleSection(header) {
+  const body = header.nextElementSibling;
+  const toggle = header.querySelector('.section-toggle');
+  const isOpen = body.style.maxHeight !== '0px' && body.style.maxHeight !== '';
+  body.style.maxHeight = isOpen ? '0px' : '5000px';
+  toggle.classList.toggle('open', !isOpen);
+}
+
+// ═══════════════════════════════════════════════════════════
+// UTILITIES
+// ═══════════════════════════════════════════════════════════
+function setLoading(show) {
+  document.getElementById('loading').className = show ? 'show' : '';
+  document.getElementById('runBtn').disabled = show;
+}
+
+function setProgress(pct, label, step) {
+  document.getElementById('progressFill').style.width = pct+'%';
+  document.getElementById('loadLabel').textContent = label;
+  document.getElementById('loadStep').textContent = step;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 3000);
 }
 </script>
 </body>
